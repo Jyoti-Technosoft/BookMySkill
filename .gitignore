@@ -1,0 +1,21 @@
+# frontend
+
+/frontend/node-modules
+/frontend/build
+/frontend/npm-debug.log
+/frontend/yarn-error.log
+/frontend/.expo
+/frontend/.expo-shared
+# Android
+/frontend/android/.gradle
+/frontend/android/app/build/
+/frontend/.android/build/
+# iOS
+/frontend/ios/build/
+/frontend/ios/Pods/
+# Other
+/frontend/*.log
+
+# backend
+/backend/node-modules
+/backend/build

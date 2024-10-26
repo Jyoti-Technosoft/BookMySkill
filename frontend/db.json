@@ -1,0 +1,45 @@
+{
+    "categorypage": {
+        "categories": [
+            {
+                "title": "Surf",
+                "image": "../public/images/category-surf.png"
+            },
+            {
+                "title": "Yoga",
+                "image": "../public/images/category-yoga.png"
+            },
+            {
+                "title": "Skate",
+                "image": "../public/images/category-skate.png"
+            },
+            {
+                "title": "Massage",
+                "image": "../public/images/category-massage.png"
+            }
+        ],
+        "taskers": [
+            {
+                "name": "John Hill",
+                "role": "Surf Teacher",
+                "image": "../public/images/tasker-img1.png",
+                "rating": 4.8,
+                "reviews": 252
+            },
+            {
+                "name": "Elizabeth Watson",
+                "role": "Pilates Trainer",
+                "image": "../public/images/tasker-img2.png",
+                "rating": 4.9,
+                "reviews": 142
+            },
+            {
+                "name": "Elizabeth Watson2",
+                "role": "Pilates Trainer2",
+                "image": "../public/images/tasker-img2.png",
+                "rating": 5.9,
+                "reviews": 142
+            }
+        ]
+    }
+}
