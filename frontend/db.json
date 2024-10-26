@@ -41,5 +41,25 @@
                 "reviews": 142
             }
         ]
+    },
+    "searchvenuepage": {
+        "searchPlaces": [
+            {
+                "url": "../public/images/searchvenues-img1.png",
+                "title": "Bali"
+            },
+            {
+                "url": "../public/images/searchvenues-img2.png",
+                "title": "Philippines"
+            },
+            {
+                "url": "../public/images/searchvenues-img2.png",
+                "title": "Fiji"
+            },
+            {
+                "url": "../public/images/searchvenues-img4.jpg",
+                "title": "Manali"
+            }
+        ]
     }
 }

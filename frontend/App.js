@@ -15,6 +15,7 @@ import Category from './Component/Category';
 import ProfileSettings from './Component/ProfileSettings';
 import TrainerList from './Component/TrainerList';
 import BookingPage from './Component/BookingPage';
+import SearchVenues from './Composnent/SearchVenues';
 // import Login from './Component/Login';
 // import Registration from './Component/Registration';
 
@@ -30,6 +31,7 @@ const App = () => {
       {/* <IconRegistry icons={EvaIconsPack} /> */}
       <ApplicationProvider {...eva} theme={eva.light}>
         {/* <SplashScreen /> */}
+        <SearchVenues/>
         {/* <Category /> */}
         {/* <ProfileSettings /> */}
         {/* <TaskerListScreen /> */}
