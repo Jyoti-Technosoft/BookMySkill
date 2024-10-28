@@ -30,7 +30,7 @@ const SearchVenues = () => {
                     <Text style={styles.clearAllButtonText}>Clear all</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.searchButton}>
-                    <Image style={styles.searchIcon} source={require('../public/images/serachicon-whiteimg.png')} />
+                    <Image style={styles.searchIconBottombar} source={require('../public/images/serachicon-whiteimg.png')} />
                     <Text style={styles.searchButtonText}>Search</Text>
                 </TouchableOpacity>
             </View>
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginLeft: 5,
     },
-    searchIcon: {
+    searchIconBottombar: {
         width: 15,
         height: 15,
         marginRight: 1,

@@ -16,6 +16,7 @@ import ProfileSettings from './Component/ProfileSettings';
 import TrainerList from './Component/TrainerList';
 import BookingPage from './Component/BookingPage';
 import SearchVenues from './Composnent/SearchVenues';
+import BookingDate from './Component/BookingDate';
 // import Login from './Component/Login';
 // import Registration from './Component/Registration';
 
@@ -31,14 +32,15 @@ const App = () => {
       {/* <IconRegistry icons={EvaIconsPack} /> */}
       <ApplicationProvider {...eva} theme={eva.light}>
         {/* <SplashScreen /> */}
-        <SearchVenues/>
+        {/* <SearchVenues/> */}
+        <BookingDate />
         {/* <Category /> */}
         {/* <ProfileSettings /> */}
         {/* <TaskerListScreen /> */}
         {/* <Registration /> */}
         {/* <Login/> */}
         {/* <TrainerList/> */}
-        <BookingPage/>
+        {/* <BookingPage/> */}
         {/* <NavigationContainer>
         <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
