@@ -14,6 +14,7 @@ import Login from './Component/Login';
 import Category from './Component/Category';
 import ProfileSettings from './Component/ProfileSettings';
 import TrainerList from './Component/TrainerList';
+import BookingPage from './Component/BookingPage';
 // import Login from './Component/Login';
 // import Registration from './Component/Registration';
 
@@ -28,13 +29,14 @@ const App = () => {
     <>
       {/* <IconRegistry icons={EvaIconsPack} /> */}
       <ApplicationProvider {...eva} theme={eva.light}>
-        <SplashScreen />
+        {/* <SplashScreen /> */}
         {/* <Category /> */}
         {/* <ProfileSettings /> */}
         {/* <TaskerListScreen /> */}
         {/* <Registration /> */}
         {/* <Login/> */}
         {/* <TrainerList/> */}
+        <BookingPage/>
         {/* <NavigationContainer>
         <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />

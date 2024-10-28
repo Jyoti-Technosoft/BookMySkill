@@ -13,11 +13,8 @@ app.use(express.json());
 app.use(cors());
 app.use("/user", userRoutes);
 
-// Connect to MongoDB
-mongoose
-    .connect(
-        "mongodb+srv://parthjtdev:aZhEeVs2ypG37LFH@cluster0.8kv0o0e.mongodb.net/demoreactnative"
-    )
+// "mongodb+srv://parthjtdev:aZhEeVs2ypG37LFH@cluster0.8kv0o0e.mongodb.net/demoreactnative"
+mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
         console.log("Connected to the database");
         app.listen(5000, () => {
