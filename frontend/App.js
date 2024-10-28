@@ -15,6 +15,7 @@ import Category from './Component/Category';
 import ProfileSettings from './Component/ProfileSettings';
 import TrainerList from './Component/TrainerList';
 import BookingPage from './Component/BookingPage';
+import TaskerProfileScreen from './Component/TaskerProfile';
 // import Login from './Component/Login';
 // import Registration from './Component/Registration';
 
@@ -36,7 +37,8 @@ const App = () => {
         {/* <Registration /> */}
         {/* <Login/> */}
         {/* <TrainerList/> */}
-        <BookingPage/>
+        {/* <BookingPage/> */}
+        <TaskerProfileScreen/>
         {/* <NavigationContainer>
         <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
