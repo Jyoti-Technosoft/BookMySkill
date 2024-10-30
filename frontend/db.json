@@ -41,5 +41,37 @@
                 "reviews": 142
             }
         ]
+    },
+    "searchvenuepage": {
+        "searchPlaces": [
+            {
+                "url": "../public/images/searchvenues-img1.png",
+                "title": "Bali"
+            },
+            {
+                "url": "../public/images/searchvenues-img2.png",
+                "title": "Philippines"
+            },
+            {
+                "url": "../public/images/searchvenues-img2.png",
+                "title": "Fiji"
+            },
+            {
+                "url": "../public/images/searchvenues-img4.jpg",
+                "title": "Manali"
+            }
+        ]
+    },
+    "reviewconfirm": {
+        "waitinline": [
+            {
+                "id": 1,
+                "profileImage": "../public/images/waitline-profile.png",
+                "name": "Ashley Hidayat",
+                "date": "Friday, February 8, 2024",
+                "time": "09:00 AM - 11:00 AM",
+                "location": "Seminyak Beach, Bali, Indonesia"
+            }
+        ]
     }
 }

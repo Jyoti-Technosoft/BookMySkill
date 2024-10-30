@@ -1,24 +1,7 @@
 import React from 'react';
-import {
-  FlatList,
-  View,
-  StyleSheet,
-  Dimensions,
-  Image,
-  ScrollView,
-} from 'react-native';
-import {
-  Layout,
-  Text,
-  Avatar,
-  Button,
-  Card,
-  Icon,
-  useTheme,
-} from '@ui-kitten/components';
-
-const {width} = Dimensions.get('window');
-
+import { FlatList, View, StyleSheet, Dimensions, Image, ScrollView } from 'react-native';
+import { Layout, Text, Avatar, Button, Card, Icon, useTheme } from '@ui-kitten/components';
+const { width } = Dimensions.get('window');
 const taskers = [
   {
     id: '1',
@@ -31,10 +14,7 @@ const taskers = [
     isElite: false,
     rating: 4.8,
     reviews: 42,
-    isRating: false,
-    isReviews: false,
-    imageUrl:
-      'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
+    imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
   },
   {
     id: '2',
@@ -47,10 +27,7 @@ const taskers = [
     isElite: false,
     rating: 4.6,
     reviews: 35,
-    isRating: false,
-    isReviews: false,
-    imageUrl:
-      'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
+    imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
   },
   {
     id: '3',
@@ -63,10 +40,7 @@ const taskers = [
     isElite: true,
     rating: 4.7,
     reviews: 28,
-    isRating: true,
-    isReviews: true,
-    imageUrl:
-      'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
+    imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
   },
 ];
 
@@ -113,126 +87,87 @@ const TaskerItem = ({tasker}) => {
     <View style={styles.cardMain}>
       <Card style={styles.card}>
         <View style={styles.row}>
-          <Avatar source={{uri: tasker.imageUrl}} style={styles.avatar} />
+          <Avatar source={{ uri: tasker.imageUrl }} style={styles.avatar} />
           <View style={styles.info}>
-            <View style={styles.headerCard}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                {tasker.isNew && (
-                  <Text
-                    style={[
-                      styles.newBadge,
-                      {
-                        backgroundColor: theme['color-info-100'],
-                        color: '#0288D1',
-                      },
-                    ]}>
-                    New
-                  </Text>
-                )}
-                {tasker.isElite && (
-                  <Text
-                    style={[
-                      styles.eliteBadge,
-                      {
-                        backgroundColor: '#FFF9C4',
-                        color: '#FBC02D',
-                      },
-                    ]}>
-                    Elite
-                  </Text>
-                )}
-                {tasker.isRating && tasker.isReviews && (
-                  <View style={styles.ratingContainer}>
-                    <Image source={require('../public/images/rating-icon.png')} style={styles.ratingIcon} />
-                    <Text style={styles.ratingText}>
-                      {tasker.rating} ({tasker.reviews} reviews)
-                    </Text>
-                  </View>
-                )}
-              </View>
-              <Text category="s1" style={styles.name}>
-                {tasker.name}
-              </Text>
+            <View style={styles.header}>
+              {tasker.isNew && <Text style={[styles.newBadge, { backgroundColor: theme['color-info-100'], color: theme['color-info-700'] }]}>New</Text>}
+              {tasker.isElite && (
+                <Text style={[styles.eliteBadge, { backgroundColor: theme['color-primary-100'], color: theme['color-primary-700'] }]}>
+                  Elite
+                </Text>
+              )}
+              <Text category="s1" style={styles.name}>{tasker.name}</Text>
+            </View>
+            <View style={styles.ratingContainer}>
+              {/* <Icon name="star" fill={theme['color-warning-500']} style={styles.starIcon} /> */}
+              <Text style={styles.ratingText}>{tasker.rating} ({tasker.reviews} reviews)</Text>
             </View>
           </View>
         </View>
-        <Text appearance="hint" style={styles.description}>
-          {tasker.description}
-        </Text>
+        <Text appearance="hint" style={styles.description}>{tasker.description}</Text>
         <View style={styles.footer}>
           <View style={styles.avatarContainer}>
             <Avatar
               size="giant"
-              source={{
-                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7pPA2AjS6AQdktQDzwws9R6gNZehpfWaEXPj4FCjrPgzQ1i5rzuGokl4zp64gAxWMts0&usqp=CAU',
-              }}
+              source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7pPA2AjS6AQdktQDzwws9R6gNZehpfWaEXPj4FCjrPgzQ1i5rzuGokl4zp64gAxWMts0&usqp=CAU' }}
               style={styles.avatarIcon}
             />
             <Text appearance="hint">{tasker.jobs} overall jobs</Text>
           </View>
-          <Text
-            style={[
-              styles.price,
-              {backgroundColor: 'rgba(109, 48, 237, 0.1)'},
-            ]}>
-            {tasker.price}
-          </Text>
+          <Text style={[styles.price, { backgroundColor: 'rgba(109, 48, 237, 0.1)' }]}>{tasker.price}</Text>
         </View>
       </Card>
     </View>
   );
 };
-
+// const TaskerListScreen = () => {
+//   return (
+//     <Layout style={styles.container} level="2">
+//       <FlatList
+//         data={taskers}
+//         keyExtractor={(item) => item.id}
+//         renderItem={({ item }) => <TaskerItem tasker={item} />}
+//       />
+//     </Layout>
+//   );
+// };
 const TaskerListScreen = () => {
   return (
     <Layout style={styles.container} level="2">
       <View style={styles.headerContainer}>
         <Header />
         <View style={styles.filtersContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-            <Button
-              size="small"
-              appearance="outline"
-              style={styles.filterBadge}>
-              <Text style={styles.filterText}>Within a week</Text>
-              <Image
-                source={{
-                  uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png',
-                }}
-                style={{width: 10, height: 10, marginLeft: 20}}
-              />
-            </Button>
-            <Button
-              size="small"
-              appearance="outline"
-              style={styles.filterBadge}>
-              <Text style={styles.filterText}>Flexible</Text>
-              <Image
-                source={{
-                  uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png',
-                }}
-                style={{width: 10, height: 10, marginLeft: 20}}
-              />
-            </Button>
-            <Button
-              size="small"
-              appearance="outline"
-              style={styles.filterBadge}>
-              <Text style={styles.filterText}>$10 - $105/hr</Text>
-              <Image
-                source={{
-                  uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png',
-                }}
-                style={{width: 10, height: 10, marginLeft: 20}}
-              />
-            </Button>
-          </ScrollView>
-        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+          <Button size="small" appearance="outline" style={styles.filterBadge}>
+            <Text style={styles.filterText}>Within a week</Text>
+            <Image
+              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
+              style={{ width: 14, height: 14 }}
+            />
+          </Button>
+          <Button size="small" appearance="outline" style={styles.filterBadge}>
+            <Text style={styles.filterText}>Flexible</Text>
+            <Image
+              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
+              style={{ width: 14, height: 14 }}
+            />
+          </Button>
+          <Button size="small" appearance="outline" style={styles.filterBadge}>
+            <Text style={styles.filterText}>$10 - $105/hr</Text>
+            <Image
+              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
+              style={{ width: 14, height: 14 }}
+            />
+          </Button>
+          <Button size="small" appearance="outline" style={styles.filterBadge}>
+            <Text style={styles.filterText}>$10 - $105/hr</Text>
+            <Image
+              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
+              style={{ width: 14, height: 14 }}
+            />
+          </Button>
+        </ScrollView>
+      </View>
       </View>
       <FlatList
         data={taskers}
@@ -251,26 +186,19 @@ const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: '#fff',
     marginBottom: 16,
+    width: "100%",
     padding: 16,
   },
   header: {
-    // justifyContent: 'center',
-    // alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#E4E9F2',
     paddingBottom: 8,
   },
-  settingsImage: {
-    width: 25,
-    height: 25,
-  },
-  headerCard: {
-    paddingVertical: 16,
-    borderBottomColor: '#E4E9F2',
-    paddingBottom: 8,
-  },
   headerTitle: {
+    textAlign: 'center',
     fontSize: 22,
   },
   filtersContainer: {
@@ -296,7 +224,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000000',
   },
-  cardMain: {
+  cardMain : {
     padding: 16,
   },
   card: {
@@ -366,6 +294,20 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     marginRight: 4,
+  },
+  ratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  starIcon: {
+    width: 16,
+    height: 16,
+    marginRight: 4,
+  },
+  ratingText: {
+    fontSize: 14,
+    color: '#8F9BB3',
   },
   description: {
     fontSize: 14,

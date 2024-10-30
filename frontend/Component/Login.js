@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Layout, Input, Button, Icon, Text } from '@ui-kitten/components';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   const handleLogin = async () => {
+    navigation.replace('Category');
     try {
       console.log('payload:', JSON.stringify({ email, password }));
       const response = await fetch('http://192.168.x.x:5000', {
@@ -24,7 +25,7 @@ const Login = () => {
       // const data = await response.json();
       // Alert.alert('Login Successful', `Welcome, ${data.email}!`);
     } catch (error) {
-      Alert.alert('Login Failed', error.message);
+      // Alert.alert('Login Failed', error.message);
     }
   };
 

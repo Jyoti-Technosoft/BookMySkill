@@ -28,7 +28,7 @@ const SocialButton = ({ title, borderColor = '#000', color = '#000' }) => (
     {title}
   </Button>
 );
-const Registration = () => {
+const Registration = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('US');
   const [firstName, setFirstName] = useState('');
@@ -44,6 +44,7 @@ const Registration = () => {
     setShowUserDetailsForm(true);
   };
   const handleSubmit = async () => {
+    navigation.replace('Login');
     try {
       const response = await fetch('http://localhost:5000/user/signUp', {
         method: 'POST',
@@ -61,9 +62,9 @@ const Registration = () => {
         throw new Error('Failed to sign up');
       }
       const data = await response.json();
-      Alert.alert('Success', 'You have successfully signed up!');
+      // Alert.alert('Success', 'You have successfully signed up!');
     } catch (error) {
-      Alert.alert('Error', error.message);
+      // Alert.alert('Error', error.message);
     }
   };
   return (
