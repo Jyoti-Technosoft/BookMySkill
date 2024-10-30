@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, Text } from 'react-native';
+
 import db from "../db.json";
 
 const SearchVenues = () => {
@@ -54,17 +55,18 @@ const SearchVenues = () => {
                     />
                 </View>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.imageScrollView}>
-                    {searchPlaces.map((item, index) => (
-                        <TouchableOpacity key={index} onPress={() => handlePlaceSelection(item.url)}>
+                    {searchPlaces?.map((item, index) => (
+                        <TouchableOpacity key={index} onPress={() => handlePlaceSelection(item?.url)}>
                             <View style={styles.placeContainer}>
-                                <Image style={styles.placeImage} source={getImageSource(item.url)} />
-                                <Text style={styles.placeText}>{item.title}</Text>
+                                <Image style={styles.placeImage} source={getImageSource(item?.url)} />
+                                <Text style={styles.placeText}>{item?.title}</Text>
                             </View>
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
             </View>
             <View >
+                {/* Add Time Card */}
                 <View style={styles.timePeopleContainer}>
                     <View style={styles.cardContent}>
                         <Text style={styles.cardText}>When</Text>

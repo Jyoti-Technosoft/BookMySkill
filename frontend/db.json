@@ -61,5 +61,17 @@
                 "title": "Manali"
             }
         ]
+    },
+    "reviewconfirm": {
+        "waitinline": [
+            {
+                "id": 1,
+                "profileImage": "../public/images/waitline-profile.png",
+                "name": "Ashley Hidayat",
+                "date": "Friday, February 8, 2024",
+                "time": "09:00 AM - 11:00 AM",
+                "location": "Seminyak Beach, Bali, Indonesia"
+            }
+        ]
     }
 }

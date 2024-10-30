@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-const SplashScreen = () => {
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         navigation.replace('Profile');
-    //     }, 2000);
+const SplashScreen = ({navigation}) => {
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigation.replace('Registration');
+        }, 2000);
 
-    //     return () => clearTimeout(timer);
-    // }, [navigation]);
+        return () => clearTimeout(timer);
+    }, [navigation]);
 
     return (
         <View style={styles.container}>
@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
     },
-    flower:
-    {
+    flower: {
         position: 'relative',
         width: 200,
         height: 200,
