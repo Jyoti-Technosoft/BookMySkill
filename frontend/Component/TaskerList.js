@@ -131,7 +131,7 @@ const TaskerItem = ({tasker}) => {
 //     </Layout>
 //   );
 // };
-const TaskerListScreen = () => {
+const TaskerList = () => {
   return (
     <Layout style={styles.container} level="2">
       <View style={styles.headerContainer}>
@@ -342,4 +342,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskerListScreen;
+export default TaskerList;

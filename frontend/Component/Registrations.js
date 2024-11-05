@@ -13,7 +13,6 @@ import {
   Select,
   SelectItem,
 } from '@ui-kitten/components';
-
 const SocialButton = ({ title, borderColor = '#000', color = '#000' }) => (
   <Button
     style={{
@@ -25,10 +24,10 @@ const SocialButton = ({ title, borderColor = '#000', color = '#000' }) => (
     appearance="outline"
     textStyle={{ color }}
   >
-    {title}
+    <Text style={{ color }}>{title}</Text>
   </Button>
 );
-const Registration = ({navigation}) => {
+const Registration = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('US');
   const [firstName, setFirstName] = useState('');
@@ -40,6 +39,19 @@ const Registration = ({navigation}) => {
     { code: 'IN', name: 'India' },
     { code: 'UK', name: 'United Kingdom' },
   ];
+  const renderCountryOption = (country) => (
+    <SelectItem
+      key={country.code}
+      title={() => (
+        <View style={styles.option}>
+          <Image source={{ uri: country.flag }} style={styles.flagImage} />
+        </View>
+      )}
+    />
+  );
+  const selectedCountryData = countries.find(
+    (country) => country.code === selectedCountry
+  );
   const handleContinue = () => {
     setShowUserDetailsForm(true);
   };
@@ -154,15 +166,95 @@ const Registration = ({navigation}) => {
               </Button>
             </>
           )}
-          <View style={{ marginTop: 'auto', alignItems: 'center', marginVertical: 20 }}>
-            <Text>Already have an account?</Text>
-            <Button appearance="ghost">
-              Log in
-            </Button>
+          <View style={styles.footer}>
+            <Text>Already have an account?<Text style={styles.footerUnderlineText}>Log in</Text></Text>
+            {/* <Button appearance="ghost"></Button> */}
           </View>
         </Layout>
       </ScrollView>
     </SafeAreaView>
   );
 };
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    padding: 5,
+    backgroundColor: "#fff"
+  },
+  scrollView: {
+    flexGrow: 1,
+    padding: 20,
+  },
+  layout: {
+    flex: 1,
+  },
+  headerText: {
+    marginBottom: 20,
+  },
+  subHeaderText: {
+    marginBottom: 8,
+  },
+  phoneContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  select: {
+    width: 75,
+    marginRight: 10,
+  },
+  option: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  flagImage: {
+    width: 24,
+    height: 16,
+    marginRight: 8,
+  },
+  optionText: {
+    fontSize: 16,
+  },
+  input: {
+    flex: 1,
+  },
+  continueButton: {
+    marginBottom: 20,
+    borderColor: "#6D30ED",
+    backgroundColor: "#6D30ED",
+  },
+  orText: {
+    textAlign: "center",
+    marginVertical: 10,
+  },
+  socialButton: {
+    marginBottom: 10,
+    backgroundColor: "white",
+    borderWidth: 1,
+  },
+  agreementText: {
+    textAlign: 'center',
+    marginTop: 20,
+    color: '#A4A6B0',
+  },
+  agreementUnderlineText: {
+    textDecorationLine: 'underline',
+    color: '#A4A6B0',
+  },
+  submitButton: {
+    marginBottom: 20,
+    borderColor: "#6D30ED",
+    backgroundColor: "#6D30ED",
+  },
+  footer: {
+    marginTop: "auto",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  footerUnderlineText: {
+    marginLeft: 10,
+    color: '#3598E7',
+    textDecorationLine: 'underline',
+  }
+});
 export default Registration;

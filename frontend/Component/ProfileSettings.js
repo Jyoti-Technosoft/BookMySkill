@@ -28,7 +28,7 @@ const ProfileSettings = ({ navigation }) => {
       <View style={styles.avatarContainer}>
         <Avatar
           size="giant"
-          source={{ uri: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg' }} // Replace with real image URL
+          source={{ uri: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg' }}
           style={styles.avatar}
         />
         <TouchableOpacity style={styles.editIcon}>
@@ -133,9 +133,9 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: height * 0.01,
-    height: height*0.08,
+    height: height * 0.08,
     color: '#474C59'
-    },
+  },
   saveButton: {
     marginTop: height * 0.03,
     backgroundColor: '#6A00FF',
