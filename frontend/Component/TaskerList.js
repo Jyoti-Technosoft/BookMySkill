@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Layout,
@@ -140,42 +141,36 @@ const TaskerList = () => {
         <Header />
         <View style={styles.filtersContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-            <Button
-              size="small"
-              appearance="outline"
+            <TouchableOpacity
               style={styles.filterBadge}>
               <Text style={styles.filterText}>Within a week</Text>
               <Icon
                 name="close-outline"
-                style={styles.icon}
-                fill="#9194a3"
+                style={styles.closeIcon}
+                fill="#323545"
                 onPress={() => { }}
               />
-            </Button>
-            <Button
-              size="small"
-              appearance="outline"
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.filterBadge}>
               <Text style={styles.filterText}>Flexible</Text>
               <Icon
                 name="close-outline"
-                style={styles.icon}
-                fill="#9194a3"
+                style={styles.closeIcon}
+                fill="#323545"
                 onPress={() => { }}
               />
-            </Button>
-            <Button
-              size="small"
-              appearance="outline"
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.filterBadge}>
               <Text style={styles.filterText}>$10 - $105/hr</Text>
               <Icon
                 name="close-outline"
-                style={styles.icon}
-                fill="#9194a3"
+                style={styles.closeIcon}
+                fill="#323545"
                 onPress={() => { }}
               />
-            </Button>
+            </TouchableOpacity>
           </ScrollView>
 
         </View>
@@ -223,16 +218,15 @@ const styles = StyleSheet.create({
   filtersContainer: {
     marginTop: 16,
     flexDirection: 'row',
-    paddingBottom: 16,
   },
   filterBadge: {
-    borderWidth: 0,
     borderRadius: 20,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     paddingVertical: 6,
     backgroundColor: '#F7F9FC',
     marginRight: 6,
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   filterText: {
@@ -240,9 +234,10 @@ const styles = StyleSheet.create({
     color: '#000000',
     marginRight: 8,
   },
-  icon: {
-    width: 20,
-    height: 20
+  closeIcon: {
+    width: 24,
+    height: 24,
+    tintColor: '#9194a3',
   },
   cardMain: {
     padding: 10,
