@@ -66,23 +66,38 @@ const Category = () => {
     return (
       <View style={styles.navBar}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.navItemContainer}>
-          <Image
+          {/* <Image
             source={require('../public/images/home-icon.png')}
             style={styles.icon}
+          /> */}
+          <Icon
+            name='home-outline'
+            style={styles.icon}
+            fill={activeTab === 'Home' ? '#6A33F8' : 'gray'}
           />
           <Text style={[styles.navItem, activeTab === 'Home' && styles.activeNavItem]}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Tasks')} style={styles.navItemContainer}>
-          <Image
+          {/* <Image
             source={require('../public/images/tasks-icon.png')}
             style={styles.icon}
+          /> */}
+          <Icon
+            name='clipboard-outline'
+            style={styles.icon}
+            fill={activeTab === 'Tasks' ? '#6A33F8' : 'gray'}
           />
           <Text style={[styles.navItem, activeTab === 'Tasks' && styles.activeNavItem]}>Tasks</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.navItemContainer}>
-          <Image
+          {/* <Image
             source={require('../public/images/profile-icon.png')}
             style={styles.icon}
+          /> */}
+          <Icon
+            name='person-outline'
+            style={styles.icon}
+            fill={activeTab === 'Profile' ? '#6A33F8' : 'gray'}
           />
           <Text style={[styles.navItem, activeTab === 'Profile' && styles.activeNavItem]}>Profile</Text>
         </TouchableOpacity>
@@ -104,12 +119,20 @@ const Category = () => {
                 style={styles.categoryLogo}
               />
               <View style={styles.iconContainer}>
-                <Image
+                {/* <Image
                   source={require('../public/images/comment-icon.png')}
                   style={styles.headericon}
                 />
                 <Image
                   source={require('../public/images/notif-icon.png')}
+                  style={styles.headericon}
+                /> */}
+                <Icon
+                  name='message-circle-outline'
+                  style={styles.headericon}
+                />
+                <Icon
+                  name='bell-outline'
                   style={styles.headericon}
                 />
               </View>
@@ -128,10 +151,13 @@ const Category = () => {
               placeholder='What service are you looking for?'
               style={styles.searchInput}
               accessoryLeft={() => (
-                <Avatar
-                  source={require('../public/images/search-icon.png')}
-                  style={{ width: 40, height: 40 }}
+                <View style={styles.searchiconContainer}>
+                <Icon
+                  name='search-outline'
+                  style={styles.searchIcon}
+                  fill='white'
                 />
+              </View>
               )}
             />
             <Layout style={styles.categorysection}>
@@ -229,6 +255,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginBottom: 20,
   },
+  searchiconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#6A33F8',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  searchIcon: {
+    width: 24,
+    height: 24,
+  },
   icon: {
     width: 24,
     height: 24,
@@ -304,18 +342,20 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingHorizontal: 8,
+    paddingLeft: 6,
+    paddingRight: 19,
     paddingVertical: 6,
-    borderRadius: 8,
+    paddingVertical: 6,
+    borderRadius: 12,
     backgroundColor: "#f0f9ff"
   },
   ratingIcon: {
-    width: 18,
-    height: 18,
+    width: 16,
+    height: 16,
     marginRight: 4,
   },
   ratingText: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#49ade1',
     fontWeight: "bold"
   },
@@ -329,11 +369,6 @@ const styles = StyleSheet.create({
   },
   navItemContainer: {
     alignItems: 'center',
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    marginBottom: 4,
   },
   navItem: {
     fontSize: 16,

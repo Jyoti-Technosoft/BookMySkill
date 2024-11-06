@@ -1,14 +1,13 @@
-// App.js
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Icon, IconRegistry } from '@ui-kitten/components';
-// import {EvaIconsPack} from '@ui-kitten/eva-icons';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+ 
 import SplashScreen from './Component/SplashScreen';
-import TaskerListScreen from './Component/TaskerListScreen';
+import TaskerList from './Component/TaskerList';
 import Registration from './Component/Registrations';
 import Login from './Component/Login';
 import Category from './Component/Category';
@@ -18,17 +17,19 @@ import BookingPage from './Component/BookingPage';
 import SearchVenues from './Component/SearchVenues';
 import BookingDate from './Component/BookingDate';
 import ReviewConfirm from './Component/ReviewConfirm';
+import TaskDetails from './Component/TaskDetails';
+import TaskCompleted from './Component/TaskCompleted';
+import TaskerRating from './Component/TaskerRating';
+import TaskerProfile from './Component/TaskerProfile';
+import Profile from './Component/Profile';
+import PaymentPage from './Component/PaymentPage';
 
 const Stack = createStackNavigator();
-
-// const IconUsage = () => (
-//   <Icon name="code-outline" fill="#ff6721" />
-// );
 
 const App = () => {
   return (
     <>
-      {/* <IconRegistry icons={EvaIconsPack} /> */}
+      <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
         {/* <SplashScreen /> */}
         {/* <SearchVenues/> */}
@@ -36,12 +37,19 @@ const App = () => {
         {/* <ReviewConfirm /> */}
         {/* <Category /> */}
         {/* <ProfileSettings /> */}
-        {/* <TaskerListScreen /> */}
+        {/* <TaskerList /> */}
         {/* <Registration /> */}
         {/* <Login/> */}
         {/* <TrainerList/> */}
         {/* <BookingPage/> */}
-        <NavigationContainer>
+        {/* <TaskDetails/> */}
+        {/* <TaskCompleted/> */}
+        {/* <TaskerRating/> */}
+        {/* <TaskerProfile/> */}
+        <Profile/>
+        {/* <PaymentPage/> */}
+
+        {/* <NavigationContainer>
           <Stack.Navigator initialRouteName="Splash">
             <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
@@ -52,10 +60,10 @@ const App = () => {
             <Stack.Screen name="SearchVenues" component={SearchVenues} options={{ headerShown: false }} />
             <Stack.Screen name="BookingDate" component={BookingDate} options={{ headerShown: false }} />
             <Stack.Screen name="BookingPage" component={BookingPage} options={{ headerShown: false }} />
-            <Stack.Screen name="TaskerList" component={TaskerListScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="TaskerList" component={TaskerList} options={{ headerShown: false }} />
             <Stack.Screen name="ReviewConfirm" component={ReviewConfirm} options={{ headerShown: false }} />
           </Stack.Navigator>
-        </NavigationContainer>
+        </NavigationContainer> */}
       </ApplicationProvider>
     </>
   );

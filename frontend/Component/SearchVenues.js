@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Icon } from '@ui-kitten/components';
 import { View, StyleSheet, TextInput, TouchableOpacity, ScrollView, Image, Text } from 'react-native';
 
 import db from "../db.json";
@@ -31,7 +32,12 @@ const SearchVenues = () => {
                     <Text style={styles.clearAllButtonText}>Clear all</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.searchButton}>
-                    <Image style={styles.searchIconBottombar} source={require('../public/images/serachicon-whiteimg.png')} />
+                    {/* <Image style={styles.searchIconBottombar} source={require('../public/images/serachicon-whiteimg.png')} /> */}
+                    <Icon
+                        name='search-outline'
+                        style={styles.searchIconBottombar}
+                        fill='white'
+                    />
                     <Text style={styles.searchButtonText}>Search</Text>
                 </TouchableOpacity>
             </View>
@@ -41,12 +47,21 @@ const SearchVenues = () => {
     return (
         <View style={styles.container}>
             <View style={styles.headercloseicon}>
-                <Image style={styles.closeIcon} source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }} />
+                <Icon
+                    name="close-outline"
+                    style={styles.closeIcon}
+                    fill="#9194a3"
+                    onPress={() => { }}
+                />
             </View>
             <View style={styles.card}>
                 <Text style={styles.whereToTitle}>Where to?</Text>
                 <View style={styles.searchInputContainer}>
-                    <Image style={styles.searchIcon} source={require('../public/images/searchvanueicon.png')} />
+                    {/* <Image style={styles.searchIcon} source={require('../public/images/searchvanueicon.png')} /> */}
+                    <Icon
+                        name='search-outline'
+                        style={styles.searchIcon}
+                    />
                     <TextInput
                         style={styles.searchInput}
                         placeholder="Search"
@@ -66,14 +81,12 @@ const SearchVenues = () => {
                 </ScrollView>
             </View>
             <View >
-                {/* Add Time Card */}
                 <View style={styles.timePeopleContainer}>
                     <View style={styles.cardContent}>
                         <Text style={styles.cardText}>When</Text>
                         <TouchableOpacity
                             style={styles.addTimeButton}
                             onPress={() => {
-                                // Handle add time action here
                             }}
                         >
                             <Text style={styles.cardButtonText}>Add Time</Text>
@@ -81,7 +94,6 @@ const SearchVenues = () => {
                     </View>
                 </View>
 
-                {/* Add People Card */}
                 <View style={styles.timePeopleContainer}>
                     <View style={styles.cardContent}>
                         <Text style={styles.cardText}>People</Text>
@@ -125,8 +137,8 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     closeIcon: {
-        width: 15,
-        height: 15,
+        width: 25,
+        height: 25,
     },
     whereToTitle: {
         fontSize: 22,
@@ -211,8 +223,8 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     searchIconBottombar: {
-        width: 15,
-        height: 15,
+        width: 20,
+        height: 20,
         marginRight: 1,
     },
     timePeopleContainer: {
