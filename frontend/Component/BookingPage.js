@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { Layout, Text, Divider } from "@ui-kitten/components";
+import { Layout, Text, Divider, Icon } from "@ui-kitten/components";
 
 export default function BookingPage() {
   const [adults, setAdults] = useState(0);
@@ -29,9 +29,14 @@ export default function BookingPage() {
           <Text style={styles.clearAllButtonText}>Clear all</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.searchButton}>
-          <Image
+          {/* <Image
             style={styles.searchIcon}
             source={require("../public/images/serachicon-whiteimg.png")}
+          /> */}
+          <Icon
+            name='search-outline'
+            style={styles.searchIcon}
+            fill="white"
           />
           <Text style={styles.searchButtonText}>Search</Text>
         </TouchableOpacity>
@@ -43,11 +48,11 @@ export default function BookingPage() {
     <SafeAreaView style={{ flex: 1 }}>
       <Layout style={styles.container}>
         <View style={styles.headercloseicon}>
-          <Image
+          <Icon
+            name="close-outline"
             style={styles.closeIcon}
-            source={{
-              uri: "https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png",
-            }}
+            fill="#9194a3"
+            onPress={() => { }}
           />
         </View>
         <View>
@@ -80,21 +85,34 @@ export default function BookingPage() {
               Adults
             </Text>
             <View style={styles.counter}>
-              <Image
+              {/* <Image
                 style={styles.counterButton}
                 source={{
                   uri: "https://static-00.iconduck.com/assets.00/minus-circle-icon-1024x1024-8ry1v1pb.png",
                 }}
                 onPress={() => decrement(setAdults, adults)}
-              />
-              <Text style={styles.countText}>{adults}</Text>
-              <Image
+              /> */}
+              <TouchableOpacity
                 style={styles.counterButton}
-                source={{
-                  uri: "https://static-00.iconduck.com/assets.00/circle-plus-icon-512x512-so2c3hqi.png",
-                }}
+                onPress={() => decrement(setAdults, adults)}
+              >
+                <Icon
+                  name="minus"
+                  style={styles.counterIcon}
+                  fill="#222B45"
+                />
+              </TouchableOpacity>
+              <Text style={styles.countText}>{adults}</Text>
+              <TouchableOpacity
+                style={styles.counterButton}
                 onPress={() => increment(setAdults, adults)}
-              />
+              >
+                <Icon
+                  name="plus"
+                  style={styles.counterIcon}
+                  fill="#222B45"
+                />
+              </TouchableOpacity>
             </View>
           </View>
           <Divider style={styles.divider} />
@@ -103,21 +121,27 @@ export default function BookingPage() {
               Children
             </Text>
             <View style={styles.counter}>
-              <Image
+              <TouchableOpacity
                 style={styles.counterButton}
-                source={{
-                  uri: "https://static-00.iconduck.com/assets.00/minus-circle-icon-1024x1024-8ry1v1pb.png",
-                }}
                 onPress={() => decrement(setChildren, children)}
-              />
+              >
+                <Icon
+                  name="minus"
+                  style={styles.counterIcon}
+                  fill="#222B45"
+                />
+              </TouchableOpacity>
               <Text style={styles.countText}>{children}</Text>
-              <Image
+              <TouchableOpacity
                 style={styles.counterButton}
-                source={{
-                  uri: "https://static-00.iconduck.com/assets.00/circle-plus-icon-512x512-so2c3hqi.png",
-                }}
                 onPress={() => increment(setChildren, children)}
-              />
+              >
+                <Icon
+                  name="plus"
+                  style={styles.counterIcon}
+                  fill="#222B45"
+                />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -140,16 +164,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   closeIcon: {
-    width: 15,
-    height: 15,
-  },
-  section: {
-    display: "flex",
-    marginBottom: 15,
-  },
-  label: {
-    fontSize: 12,
-    color: "#8F9BB3",
+    width: 28,
+    height: 28,
   },
   value: {
     fontSize: 16,
@@ -213,8 +229,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   searchIcon: {
-    width: 15,
-    height: 15,
+    width: 20,
+    height: 20,
     marginRight: 1,
   },
   locationDateContainer: {
@@ -295,6 +311,12 @@ const styles = StyleSheet.create({
     height: 32,
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "#E4E9F2",
+    borderColor: "#adb1b7",
+    borderWidth: 1,
+    marginHorizontal: 5,
+  },
+  counterIcon: {
+    width: 20,
+    height: 20,
   },
 });

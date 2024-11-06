@@ -26,23 +26,26 @@ const TaskCompleted = () => {
         return (
             <View style={styles.navBar}>
                 <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.navItemContainer}>
-                    <Image
-                        source={require('../public/images/home-simple-icon.png')}
+                    <Icon
+                        name='home-outline'
                         style={styles.icon}
+                        fill={activeTab === 'Home' ? '#6A33F8' : 'gray'}
                     />
                     <Text style={[styles.navItem, activeTab === 'Home' && styles.activeNavItem]}>Home</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Tasks')} style={styles.navItemContainer}>
-                    <Image
-                        source={require('../public/images/task-active-icon.png')}
+                    <Icon
+                        name='clipboard-outline'
                         style={styles.icon}
+                        fill={activeTab === 'Tasks' ? '#6A33F8' : 'gray'}
                     />
                     <Text style={[styles.navItem, activeTab === 'Tasks' && styles.activeNavItem]}>Tasks</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.navItemContainer}>
-                    <Image
-                        source={require('../public/images/profile-icon.png')}
+                    <Icon
+                        name='person-outline'
                         style={styles.icon}
+                        fill={activeTab === 'Profile' ? '#6A33F8' : 'gray'}
                     />
                     <Text style={[styles.navItem, activeTab === 'Profile' && styles.activeNavItem]}>Profile</Text>
                 </TouchableOpacity>
@@ -58,7 +61,7 @@ const TaskCompleted = () => {
                 style={styles.tabView}
             >
                 <Tab title="Scheduled" style={styles.selectedTab}>
-                        <Text>Releasing Soon!</Text>
+                    <Text>Releasing Soon!</Text>
                 </Tab>
                 <Tab title="Completed" style={styles.selectedTab}>
                     <ScrollView contentContainerStyle={styles.content}>
@@ -85,18 +88,18 @@ const TaskCompleted = () => {
                                 <Divider style={styles.divider} />
                                 <View style={styles.info}>
                                     <View style={styles.row}>
-                                        {/* <CalendarIcon style={styles.icon} /> */}
-                                        <Image
-                                            source={require("../public/images/calendar-icon.png")}
+                                        <Icon
+                                            name="calendar"
                                             style={styles.calenderImage}
+                                            fill="#bdbfca"
                                         />
                                         <Text>{task.date}</Text>
                                     </View>
                                     <View style={styles.row}>
-                                        {/* <ClockIcon style={styles.icon} /> */}
-                                        <Image
-                                            source={require("../public/images/clock-icon.png")}
+                                        <Icon
+                                            name="clock-outline"
                                             style={styles.clockImage}
+                                            fill="#bdbfca"
                                         />
                                         <Text>{task.time}</Text>
                                     </View>
@@ -163,11 +166,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 4,
     },
-    icon: {
-        width: 20,
-        height: 20,
-        marginRight: 8,
-    },
     button: {
         marginTop: 10,
         borderRadius: 24,
@@ -184,9 +182,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        width: 20,
-        height: 20,
-        marginBottom: 4,
+        width: 24,
+        height: 24,
     },
     navItem: {
         fontSize: 14,
@@ -201,13 +198,13 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     calenderImage: {
-        width: 18,
-        height: 18,
+        width: 25,
+        height: 25,
         marginRight: 10,
     },
     clockImage: {
-        width: 18,
-        height: 18,
+        width: 25,
+        height: 25,
         marginRight: 10,
     },
     chatImage: {

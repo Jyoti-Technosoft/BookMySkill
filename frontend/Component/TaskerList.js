@@ -35,11 +35,10 @@ const Header = () => (
       }}>
       <View
         style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <Image
+        <Icon
+          name="arrow-back"
           style={[styles.backImage, { marginRight: 15 }]}
-          source={{
-            uri: 'https://w7.pngwing.com/pngs/825/110/png-transparent-computer-icons-arrow-symbol-icon-design-back-angle-text-triangle-thumbnail.png',
-          }}
+          onPress={() => navigation.goBack()}
         />
         <Text category="h6" style={styles.headerTitle}>
           Select a Tasker
@@ -48,9 +47,7 @@ const Header = () => (
       <View>
         <Image
           style={styles.settingsImage}
-          source={{
-            uri: 'https://png.pngtree.com/png-clipart/20230403/original/pngtree-process-line-icon-png-image_9021743.png',
-          }}
+          source={require('../public/images/settings-rectangular-img.png')}
         />
       </View>
     </View>
@@ -147,39 +144,40 @@ const TaskerList = () => {
               size="small"
               appearance="outline"
               style={styles.filterBadge}>
-              <Text style={styles.filterText}>Within a week   </Text>
-              <Image
-                source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/251/251319.png',
-                }}
-                style={{ width: 14, height: 14 }}
+              <Text style={styles.filterText}>Within a week</Text>
+              <Icon
+                name="close-outline"
+                style={styles.icon}
+                fill="#9194a3"
+                onPress={() => { }}
               />
             </Button>
             <Button
               size="small"
               appearance="outline"
               style={styles.filterBadge}>
-              <Text style={styles.filterText}>Flexible   </Text>
-              <Image
-                source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/251/251319.png',
-                }}
-                style={{ width: 14, height: 14 }}
+              <Text style={styles.filterText}>Flexible</Text>
+              <Icon
+                name="close-outline"
+                style={styles.icon}
+                fill="#9194a3"
+                onPress={() => { }}
               />
             </Button>
             <Button
               size="small"
               appearance="outline"
               style={styles.filterBadge}>
-              <Text style={styles.filterText}>$10 - $105/hr   </Text>
-              <Image
-                source={{
-                  uri: 'https://cdn-icons-png.flaticon.com/512/251/251319.png',
-                }}
-                style={{ width: 14, height: 14 }}
+              <Text style={styles.filterText}>$10 - $105/hr</Text>
+              <Icon
+                name="close-outline"
+                style={styles.icon}
+                fill="#9194a3"
+                onPress={() => { }}
               />
             </Button>
           </ScrollView>
+
         </View>
       </View>
       <FlatList
@@ -206,9 +204,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#d4d4d4',
     paddingBottom: 8,
   },
-  backImage:{
-    width: 25,
-    height: 25,
+  backImage: {
+    width: 30,
+    height: 30,
   },
   settingsImage: {
     width: 25,
@@ -227,12 +225,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingBottom: 16,
   },
-  filters: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 16,
-    backgroundColor: '#fff',
-  },
   filterBadge: {
     borderWidth: 0,
     borderRadius: 20,
@@ -240,19 +232,25 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     backgroundColor: '#F7F9FC',
     marginRight: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   filterText: {
     fontSize: 16,
     color: '#000000',
+    marginRight: 8,
+  },
+  icon: {
+    width: 20,
+    height: 20
   },
   cardMain: {
-    padding: 16,
+    padding: 10,
   },
   card: {
-    marginBottom: 16,
     borderRadius: 10,
     backgroundColor: '#fff',
-    padding: 16,
+    padding: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

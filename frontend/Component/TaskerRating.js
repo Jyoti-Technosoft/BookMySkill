@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
-import { Layout, Text, Button, Input, Modal, Card } from '@ui-kitten/components';
+import { Layout, Text, Button, Input, Modal, Card, Icon } from '@ui-kitten/components';
 
 const TaskerRating = () => {
     const [comment, setComment] = useState('');
@@ -26,11 +26,10 @@ const TaskerRating = () => {
                         marginBottom: 10
                     }}
                 >
-                    <Image
-                        style={[styles.backandCloseImage, { marginRight: 20 }]}
-                        source={{
-                            uri: "https://static.thenounproject.com/png/225669-200.png",
-                        }}
+                    <Icon
+                        name="arrow-back"
+                        style={styles.backandCloseImage}
+                        onPress={() => navigation.goBack()}
                     />
 
                     <Text category="h6" style={styles.headerTitle}>
@@ -159,8 +158,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     backandCloseImage: {
-        width: 18,
-        height: 18,
+        width: 25,
+        height: 25,
+        marginRight: 15
     },
     cardLayout: {
         alignItems: 'center',

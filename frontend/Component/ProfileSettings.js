@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Layout, Input, Button, Avatar } from '@ui-kitten/components';
-import { StyleSheet, View, TouchableOpacity, Text, Dimensions, Image } from 'react-native';
+import { Layout, Input, Button, Avatar, Icon } from '@ui-kitten/components';
+import { StyleSheet, View, TouchableOpacity, Text, Dimensions } from 'react-native';
+
 const { width, height } = Dimensions.get('window');
+
 const ProfileSettings = ({ navigation }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -24,11 +26,31 @@ const ProfileSettings = ({ navigation }) => {
 
   const renderEyeIcon = (props) => (
     <TouchableOpacity onPress={toggleSecureEntry}>
-      <Image
-        source={secureTextEntry ? require('../public/images/eye_icon.png') : require('../public/images/eye_off_icon.png')}
+      <Icon
+        {...props}
+        name={secureTextEntry ? 'eye-off' : 'eye'}
         style={styles.icon}
+        fill="#8F9BB3"
       />
     </TouchableOpacity>
+  );
+
+  const renderEditIcon = (props) => (
+    <Icon
+      {...props}
+      name="edit-2"
+      style={styles.editIconImage}
+      fill="#fff"
+    />
+  );
+
+  const renderCloseIcon = (props) => (
+    <Icon
+      {...props}
+      name="close-outline"
+      style={styles.closeIconImage}
+      fill="#9194a3"
+    />
   );
 
   return (
@@ -37,23 +59,19 @@ const ProfileSettings = ({ navigation }) => {
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Profile settings</Text>
           <TouchableOpacity style={styles.closeIcon} onPress={handleClose}>
-            <Image
-              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
-              style={{ width: 18, height: 18 }}
-            />
+            {renderCloseIcon()}
           </TouchableOpacity>
         </View>
         <View style={styles.avatarContainer}>
           <Avatar
             size="giant"
-            source={{ uri: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg' }}
+            source={{
+              uri: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
+            }}
             style={styles.avatar}
           />
           <TouchableOpacity style={styles.editIcon}>
-            <Image
-              source={{ uri: 'https://cdn-icons-png.flaticon.com/512/1159/1159633.png' }}
-              style={styles.editIconImage}
-            />
+            {renderEditIcon()}
           </TouchableOpacity>
         </View>
         <Input
@@ -105,6 +123,7 @@ const ProfileSettings = ({ navigation }) => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
@@ -114,7 +133,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   container: {
-    // flex: 1,
     width: '100%',
     padding: width * 0.05,
     backgroundColor: '#fff',
@@ -144,6 +162,10 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 5,
   },
+  closeIconImage: {
+    width: 35,
+    height: 35,
+  },
   avatarContainer: {
     alignItems: 'center',
     marginVertical: height * 0.05,
@@ -168,17 +190,21 @@ const styles = StyleSheet.create({
   editIconImage: {
     width: 20,
     height: 20,
-    tintColor: '#fff',
   },
   input: {
     marginBottom: height * 0.01,
     height: height * 0.08,
-    color: '#2c3034'
+    color: '#2c3034',
   },
   saveButton: {
     marginTop: height * 0.03,
     backgroundColor: '#6d30ed',
     borderColor: 'transparent',
   },
+  icon: {
+    width: 24,
+    height: 24,
+  },
 });
+
 export default ProfileSettings;

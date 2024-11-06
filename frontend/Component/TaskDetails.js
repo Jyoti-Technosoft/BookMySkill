@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, StyleSheet, View, Text, ScrollView, TouchableOpacity, TextInput } from 'react-native';
-import { Layout, Card, Button, Input, Tab, TabView } from '@ui-kitten/components';
+import { Layout, Card, Icon, Tab, TabView } from '@ui-kitten/components';
 
 import db from "../db.json";
 
@@ -36,15 +36,16 @@ const TaskDetails = () => {
         return (
             <View style={styles.topBar}>
                 <View style={styles.topTitle}>
-                    <Image
+                    <Icon
+                        name="arrow-back"
                         style={styles.imageTobar}
-                        source={require('../public/images/back-icon.png')}
+                        onPress={() => navigation.goBack()}
                     />
                     <Text category="h5" style={styles.header}>Task Details</Text>
                 </View>
-                <Image
+                <Icon
+                    name="more-vertical"
                     style={styles.imageTobar}
-                    source={require('../public/images/3-dots-img.png')}
                 />
             </View>
         );
@@ -86,23 +87,26 @@ const TaskDetails = () => {
                                 </View>
                                 <View>
                                     <View style={styles.childRow}>
-                                        <Image
+                                        <Icon
+                                            name="calendar"
                                             style={styles.waitCommanImg}
-                                            source={require('../public/images/calendar-icon.png')}
+                                            fill="#bdbfca"
                                         />
                                         <Text style={styles.waitCommanText}>{item?.date}</Text>
                                     </View>
                                     <View style={styles.childRow}>
-                                        <Image
+                                        <Icon
+                                            name="clock-outline"
                                             style={styles.waitCommanImg}
-                                            source={require('../public/images/clock-icon.png')}
+                                            fill="#bdbfca"
                                         />
                                         <Text style={styles.waitCommanText}>{item?.time}</Text>
                                     </View>
                                     <View style={styles.childRow}>
-                                        <Image
+                                        <Icon
+                                            name="pin"
                                             style={styles.waitCommanImg}
-                                            source={require('../public/images/location-icon.png')}
+                                            fill="#bdbfca"
                                         />
                                         <Text style={styles.waitCommanText}>{item?.location}</Text>
                                     </View>
@@ -255,8 +259,8 @@ const styles = StyleSheet.create({
         marginLeft: 9
     },
     waitCommanImg: {
-        width: 19,
-        height: 19,
+        width: 25,
+        height: 25,
     },
     profileIcon: {
         width: 45,
@@ -348,8 +352,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     imageTobar: {
-        width: 18,
-        height: 18
+        width: 25,
+        height: 25
     },
     topTitle: {
         flexDirection: 'row',

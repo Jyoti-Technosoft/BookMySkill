@@ -15,7 +15,12 @@ const BookingDate = () => {
                     <Text style={styles.clearAllButtonText}>Clear all</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.searchButton}>
-                    <Image style={styles.searchIcon} source={require('../public/images/serachicon-whiteimg.png')} />
+                    {/* <Image style={styles.searchIcon} source={require('../public/images/serachicon-whiteimg.png')} /> */}
+                    <Icon
+                        name='search-outline'
+                        style={styles.searchIcon}
+                        fill="white"
+                    />
                     <Text style={styles.searchButtonText}>Search</Text>
                 </TouchableOpacity>
             </View>
@@ -51,7 +56,12 @@ const BookingDate = () => {
 
     return (<View style={styles.container}>
         <View style={styles.headercloseicon}>
-            <Image style={styles.closeIcon} source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }} />
+            <Icon
+                name="close-outline"
+                style={styles.closeIcon}
+                fill="#9194a3"
+                onPress={() => { }}
+            />
         </View>
         <View style={styles.locationContainer}>
             <View style={styles.cardContent}>
@@ -147,8 +157,8 @@ const styles = StyleSheet.create({
         paddingTop: 3
     },
     closeIcon: {
-        width: 13,
-        height: 13,
+        width: 25,
+        height: 25,
     },
     locationContainer: {
         backgroundColor: "#ffffff",
@@ -323,8 +333,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     searchIcon: {
-        width: 15,
-        height: 15,
+        width: 20,
+        height: 20,
         marginRight: 1,
     },
     searchButtonText: {

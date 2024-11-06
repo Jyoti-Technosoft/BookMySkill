@@ -15,6 +15,7 @@ import {
   Divider,
   Calendar,
   Button,
+  Icon
 } from "@ui-kitten/components";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
@@ -98,11 +99,10 @@ const TaskerProfile = () => {
             alignItems: "center",
           }}
         >
-          <Image
-            style={[styles.backandShareImage, { marginRight: 20 }]}
-            source={{
-              uri: "https://static.thenounproject.com/png/225669-200.png",
-            }}
+          <Icon
+            name="arrow-back"
+            style={[styles.backandShareImage, { marginRight: 15 }]}
+            onPress={() => navigation.goBack()}
           />
 
           <Text category="h6" style={styles.headerTitle}>
@@ -111,15 +111,13 @@ const TaskerProfile = () => {
         </View>
 
         <View>
-          <Image
+          <Icon
+            name="share"
             style={styles.backandShareImage}
-            source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXfsjniguEZwBwazwLceJ3ixk5KOKIAEalTRCMX8tqnCNxmUx00eMTbCaH6YD9qojP8o&usqp=CAU",
-            }}
           />
         </View>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView>
         <View style={styles.profileContainer}>
           <Card style={styles.card}>
             <View style={styles.row}>
@@ -149,9 +147,10 @@ const TaskerProfile = () => {
                       Elite Tasker
                     </Text>
                     <View style={styles.ratingContainer}>
-                      <Image
-                        source={require("../public/images/rating-icon.png")}
+                      <Icon
+                        name="star"
                         style={styles.ratingIcon}
+                        fill="#0288D1"
                       />
                       <Text style={styles.ratingText}>4.8 (42 reviews)</Text>
                     </View>
@@ -269,42 +268,55 @@ const TaskerProfile = () => {
                     style={styles.timePicker}
                     onPress={() => setShowTimePicker1(true)}
                   >
-                    <Text style={styles.timeText}>{formatTime(time1)}</Text>
-                    <Text style={styles.clockIcon}>🕒</Text>
+                  <View style={styles.iconTextContainer}>
+                      <Text style={styles.text}>09:00 AM</Text>
+                      <Icon
+                        name="clock-outline"
+                        fill="#000"
+                        style={styles.clockIcon}
+                      />
+                    </View>
                   </TouchableOpacity>
 
                   <TouchableOpacity
                     style={styles.timePicker2}
                     onPress={() => setShowTimePicker2(true)}
                   >
-                    <Text style={styles.timeText}>{formatTime(time2)}</Text>
-                    <Text style={styles.clockIcon}>🕒</Text>
-                  </TouchableOpacity>
+                    {/* <Text style={styles.clockIcon}>🕒</Text> */}
+                    <View style={styles.iconTextContainer}>
+                      <Text style={styles.text}>11:00 AM</Text>
+                      <Icon
+                        name="clock-outline"
+                        fill="#000"
+                        style={styles.clockIcon}
+                      />
+                    </View>
+              </TouchableOpacity>
 
-                  {showTimePicker1 && (
-                    <DateTimePicker
-                      value={time1}
-                      mode="time"
-                      display="default"
-                      onChange={onChangeTime1}
-                    />
-                  )}
-                  {showTimePicker2 && (
-                    <DateTimePicker
-                      value={time2}
-                      mode="time"
-                      display="default"
-                      onChange={onChangeTime2}
-                    />
-                  )}
-                </View>
-              </ScrollView>
-              <BottomBar />
+              {showTimePicker1 && (
+                <DateTimePicker
+                  value={time1}
+                  mode="time"
+                  display="default"
+                  onChange={onChangeTime1}
+                />
+              )}
+              {showTimePicker2 && (
+                <DateTimePicker
+                  value={time2}
+                  mode="time"
+                  display="default"
+                  onChange={onChangeTime2}
+                />
+              )}
             </View>
-          </View>
-        </Modal>
-      </ScrollView>
-    </Layout>
+          </ScrollView>
+          <BottomBar />
+        </View>
+      </View>
+    </Modal>
+      </ScrollView >
+    </Layout >
   );
 };
 
@@ -334,8 +346,8 @@ const styles = StyleSheet.create({
     height: 25,
   },
   backandShareImage: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
   },
   icon: {
     width: 24,
@@ -583,27 +595,39 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     borderWidth: 1,
-    borderRadius: 20,
-    borderColor: "#ccc",
+    borderRadius: 25,
+    borderColor: "#9294a1",
   },
   timePicker2: {
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
     borderWidth: 1,
-    borderRadius: 20,
-    borderColor: "#ccc",
+    borderRadius: 25,
+    borderColor: "#9294a1",
     marginLeft: 10
   },
   timeText: {
     fontSize: 16,
     marginRight: 60,
   },
-  clockIcon: {
-    fontSize: 16,
-  },
   scrollContent: {
     paddingBottom: 20,
+  },
+  iconTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 2
+  },
+  clockIcon: {
+    width: 24,
+    height: 24,
+    marginLeft: 35,
+  },
+  text: {
+    fontSize: 16,
+    color: '#000',
   },
 });
 

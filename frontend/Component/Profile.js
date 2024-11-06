@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
-import { Layout, Text, Button, Divider, ListItem } from '@ui-kitten/components';
+import { Layout, Text, Divider, Icon } from '@ui-kitten/components';
 
 const Profile = () => {
     const [activeTab, setActiveTab] = useState('Profile');
@@ -11,31 +11,34 @@ const Profile = () => {
 
     const BottomNavBar = ({ navigation, activeTab }) => {
         return (
-            <View style={styles.navBar}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.navItemContainer}>
-                    <Image
-                        source={require('../public/images/home-simple-icon.png')}
-                        style={styles.icon}
-                    />
-                    <Text style={[styles.navItem, activeTab === 'Home' && styles.activeNavItem]}>Home</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Tasks')} style={styles.navItemContainer}>
-                    <Image
-                        source={require('../public/images/tasks-icon.png')}
-                        style={styles.icon}
-                    />
-                    <Text style={[styles.navItem, activeTab === 'Tasks' && styles.activeNavItem]}>Tasks</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.navItemContainer}>
-                    <Image
-                        source={require('../public/images/profile-active-icon.png')}
-                        style={styles.icon}
-                    />
-                    <Text style={[styles.navItem, activeTab === 'Profile' && styles.activeNavItem]}>Profile</Text>
-                </TouchableOpacity>
-            </View>
+          <View style={styles.navBar}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.navItemContainer}>
+              <Icon
+                name='home-outline'
+                style={styles.icon}
+                fill={activeTab === 'Home' ? '#6A33F8' : 'gray'}
+              />
+              <Text style={[styles.navItem, activeTab === 'Home' && styles.activeNavItem]}>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Tasks')} style={styles.navItemContainer}>
+              <Icon
+                name='clipboard-outline'
+                style={styles.icon}
+                fill={activeTab === 'Tasks' ? '#6A33F8' : 'gray'}
+              />
+              <Text style={[styles.navItem, activeTab === 'Tasks' && styles.activeNavItem]}>Tasks</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.navItemContainer}>
+              <Icon
+                name='person-outline'
+                style={styles.icon}
+                fill={activeTab === 'Profile' ? '#6A33F8' : 'gray'}
+              />
+              <Text style={[styles.navItem, activeTab === 'Profile' && styles.activeNavItem]}>Profile</Text>
+            </TouchableOpacity>
+          </View>
         );
-    };
+      };
 
     return (
         <Layout style={styles.mainContainer}>
@@ -222,8 +225,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     icon: {
-        width: 20,
-        height: 20,
+        width: 24,
+        height: 24,
         marginBottom: 4,
     },
     navItem: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Text, Icon, Avatar, Card, Button } from '@ui-kitten/components';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import db from "../db.json";
 
@@ -22,6 +22,7 @@ const TrainerList = ({ navigation }) => {
       </View>
     </Card>
   );
+
   return (
     <Layout style={styles.container}>
       <View
@@ -37,22 +38,20 @@ const TrainerList = ({ navigation }) => {
         }}>
         <View
           style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-          <Image
-            style={[styles.backandCloseImage, { marginRight: 20 }]}
-            source={{
-              uri: 'https://static.thenounproject.com/png/225669-200.png',
-            }}
+          <Icon
+            name="arrow-back"
+            style={[styles.backandCloseIcon, { marginRight: 20 }]}
+            onPress={() => navigation.goBack()}
           />
           <Text category="h6" style={styles.headerTitle}>
             Box Trainer
           </Text>
         </View>
         <View>
-          <Image
-            style={styles.backandCloseImage}
-            source={{
-              uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png',
-            }}
+          <Icon
+            name="close"
+            style={styles.backandCloseIcon}
+            onPress={() => navigation.goBack()}
           />
         </View>
       </View>
@@ -64,6 +63,7 @@ const TrainerList = ({ navigation }) => {
     </Layout>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -75,13 +75,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  backIcon: {
-    width: 24,
-    height: 24,
-  },
-  closeIcon: {
-    width: 24,
-    height: 24,
+  backandCloseIcon: {
+    width: 30,
+    height: 30,
+    marginBottom: 0,
   },
   headerTitle: {
     fontSize: 20,
@@ -113,4 +110,5 @@ const styles = StyleSheet.create({
     height: 17,
   },
 });
+
 export default TrainerList;
