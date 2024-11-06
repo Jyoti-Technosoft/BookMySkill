@@ -18,30 +18,11 @@ import {
 } from "@ui-kitten/components";
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const reviews = [
-  {
-    id: 1,
-    name: "John King",
-    date: "A day ago",
-    rating: 5,
-    review:
-      "Incredible experience! The surf session with Ashley was beyond amazing. Their guidance and expertise helped me catch waves I never thought possible. Highly recommend!",
-    avatar:
-      "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg",
-  },
-  {
-    id: 2,
-    name: "Jennifer Harris",
-    date: "A day ago",
-    rating: 4,
-    review:
-      "Ashley was late 30 minutes. Nevertheless, she was super friendly and made me feel at ease right away. She’s patient, encouraging, and really knows her stuff.",
-    avatar:
-      "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg",
-  },
-];
+import db from "../db.json";
 
-const TaskerProfileScreen = () => {
+const reviews = db?.TaskerProfile?.reviews || [];
+
+const TaskerProfile = () => {
   const [scheduleVisible, setScheduleVisible] = useState(false);
   const [date, setDate] = useState(new Date());
   const [time1, setTime1] = useState(new Date());
@@ -118,7 +99,7 @@ const TaskerProfileScreen = () => {
           }}
         >
           <Image
-            style={[styles.backandCloseImage, { marginRight: 20 }]}
+            style={[styles.backandShareImage, { marginRight: 20 }]}
             source={{
               uri: "https://static.thenounproject.com/png/225669-200.png",
             }}
@@ -131,9 +112,9 @@ const TaskerProfileScreen = () => {
 
         <View>
           <Image
-            style={styles.backandCloseImage}
+            style={styles.backandShareImage}
             source={{
-              uri: "https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png",
+              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXfsjniguEZwBwazwLceJ3ixk5KOKIAEalTRCMX8tqnCNxmUx00eMTbCaH6YD9qojP8o&usqp=CAU",
             }}
           />
         </View>
@@ -293,7 +274,7 @@ const TaskerProfileScreen = () => {
                   </TouchableOpacity>
 
                   <TouchableOpacity
-                    style={styles.timePicker}
+                    style={styles.timePicker2}
                     onPress={() => setShowTimePicker2(true)}
                   >
                     <Text style={styles.timeText}>{formatTime(time2)}</Text>
@@ -352,9 +333,9 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
   },
-  backandCloseImage: {
-    width: 18,
-    height: 18,
+  backandShareImage: {
+    width: 20,
+    height: 20,
   },
   icon: {
     width: 24,
@@ -605,9 +586,18 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: "#ccc",
   },
+  timePicker2: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: "#ccc",
+    marginLeft: 10
+  },
   timeText: {
     fontSize: 16,
-    marginRight: 65,
+    marginRight: 60,
   },
   clockIcon: {
     fontSize: 16,
@@ -617,4 +607,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskerProfileScreen;
+export default TaskerProfile;

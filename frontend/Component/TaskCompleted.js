@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Layout, Text, Card, Button, Divider, Icon, Tab, TabView } from '@ui-kitten/components';
 import { View, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
+import db from "../db.json";
+
 const TaskCompleted = () => {
     const [activeTab, setActiveTab] = useState('Tasks');
     const [selectedIndex, setSelectedIndex] = useState(1);
@@ -10,32 +12,7 @@ const TaskCompleted = () => {
         setSelectedIndex(1);
     }, []);
 
-    const tasks = [
-        {
-            title: 'Surf teacher',
-            name: 'Ashley Hidayat',
-            date: 'Friday, February 8, 2024',
-            time: '09:50 AM - 11:00 AM',
-            buttonText: 'Rate',
-            imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
-        },
-        {
-            title: 'Box trainer',
-            name: 'David Wijaya',
-            date: 'Tuesday, January 21, 2023',
-            time: '14:00 PM - 16:00 PM',
-            buttonText: 'Book Again',
-            imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
-        },
-        {
-            title: 'Massage therapist',
-            name: 'Sarah Suryadi',
-            date: 'Thursday, November 12, 2022',
-            time: '13:00 PM - 15:00 PM',
-            buttonText: 'Book Again',
-            imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
-        },
-    ];
+    const tasks = db?.TaskCompleted?.tasks || [];
 
     const handleNavigation = (tab) => {
         setActiveTab(tab);

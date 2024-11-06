@@ -8,31 +8,27 @@ const TaskDetails = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const waitinlines = db?.reviewconfirm?.waitinline || [];
     const [message, setMessage] = useState('');
-    const messages = [
-        { id: 1, text: "Hello James, can't wait for our first session together! Let's meet at the entrance to the Seminyak Beach, in front of Gado Gado restaurant.", sender: 'Ashley Hidayat', time: '08:23 PM' },
-        { id: 2, text: "Hello Ashley, sure, I’ll be there! Can’t wait for my first session ever.", sender: 'You', time: '08:32 PM' },
-        { id: 3, text: "Amazing, see you soon! :)", sender: 'Ashley Hidayat', time: '08:33 PM' }
-    ];
+    const messages = db?.TaskDetails?.messages
 
     const BottomBar = () => {
         return (
             <View style={styles.bottomBar}>
-                <Button
+                <TouchableOpacity
                     style={styles.newTaskerButton}
-                    appearance="outline"
+                    // appearance="outline"
                     // status="primary"
                     onPress={() => alert('Find a New Tasker')}
                 >
-                    <Text style={{ color: '#6d30ed' }}>Find a New Tasker</Text>
-                </Button>
-                <Button
+                    <Text style={styles.newTaskerText}>Find a New Tasker</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
                     style={styles.cancelTaskButton}
-                    appearance="outline"
-                    status="danger"
+                    // appearance="outline"
+                    // status="danger"
                     onPress={() => alert('Cancel Task')}
                 >
-                    Cancel Task
-                </Button>
+                    <Text style={styles.cancelTaskText}>Cancel Task</Text>
+                </TouchableOpacity>
             </View>
         );
     };
@@ -313,21 +309,34 @@ const styles = StyleSheet.create({
     newTaskerButton: {
         width: '100%',
         borderRadius: 20,
-        color: '#6d30ed',
         borderColor: '#6d30ed',
+        borderWidth: 1.2,
         backgroundColor: '#fff',
         paddingHorizontal: 16,
         paddingVertical: 10,
         marginTop: 170,
         marginBottom: 10,
     },
+    newTaskerText: {
+        color: '#6d30ed',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
     cancelTaskButton: {
         width: '100%',
         borderRadius: 20,
         borderColor: '#e1696e',
+        borderWidth: 1.2,
         backgroundColor: '#fff',
         paddingHorizontal: 16,
         paddingVertical: 8,
+    },
+    cancelTaskText: {
+        color: '#e1696e',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: 'bold'
     },
     topBar: {
         flexDirection: 'row',

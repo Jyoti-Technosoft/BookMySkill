@@ -304,18 +304,20 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingHorizontal: 8,
+    paddingLeft: 6,
+    paddingRight: 19,
     paddingVertical: 6,
-    borderRadius: 8,
+    paddingVertical: 6,
+    borderRadius: 12,
     backgroundColor: "#f0f9ff"
   },
   ratingIcon: {
-    width: 18,
-    height: 18,
+    width: 16,
+    height: 16,
     marginRight: 4,
   },
   ratingText: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#49ade1',
     fontWeight: "bold"
   },

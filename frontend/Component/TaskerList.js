@@ -1,48 +1,26 @@
 import React from 'react';
-import { FlatList, View, StyleSheet, Dimensions, Image, ScrollView } from 'react-native';
-import { Layout, Text, Avatar, Button, Card, Icon, useTheme } from '@ui-kitten/components';
+import {
+  FlatList,
+  View,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ScrollView,
+} from 'react-native';
+import {
+  Layout,
+  Text,
+  Avatar,
+  Button,
+  Card,
+  Icon,
+  useTheme,
+} from '@ui-kitten/components';
 const { width } = Dimensions.get('window');
-const taskers = [
-  {
-    id: '1',
-    name: 'Sam Kusuma',
-    description:
-      'Hey, I’m Sam, your easygoing surf instructor here to make sure you have a blast while catching some waves. With over ten years of surfing experience, I’ve got the tricks ...',
-    jobs: 3,
-    price: '$15/hr',
-    isNew: true,
-    isElite: false,
-    rating: 4.8,
-    reviews: 42,
-    imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
-  },
-  {
-    id: '2',
-    name: 'Elizabeth Santoso',
-    description:
-      'Hi, I’m Eli, your fearless surf teacher breaking stereotypes one wave at a time. I bring a contagious energy to every lesson, empowering you to conquer the surf with ...',
-    jobs: 5,
-    price: '$20/hr',
-    isNew: true,
-    isElite: false,
-    rating: 4.6,
-    reviews: 35,
-    imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
-  },
-  {
-    id: '3',
-    name: 'Aubrey Jones',
-    description:
-      'Hi, I’m Aubrey, your surf guide ensuring you experience the best of what the ocean has to offer. My teaching style is both fun and patient ...',
-    jobs: 7,
-    price: '$18/hr',
-    isNew: false,
-    isElite: true,
-    rating: 4.7,
-    reviews: 28,
-    imageUrl: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
-  },
-];
+
+import db from "../db.json";
+
+const taskers = db?.TaskerList?.taskers || [];
 
 const Header = () => (
   <Layout style={styles.header} level="1">
@@ -51,23 +29,22 @@ const Header = () => (
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'censter',
+        alignItems: 'center',
         paddingHorizontal: 10,
+        paddingVertical: 6
       }}>
       <View
-        style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <Image
-          style={[styles.settingsImage, {marginRight: 10}]}
+          style={[styles.backImage, { marginRight: 15 }]}
           source={{
-            uri: 'https://cdn.icon-icons.com/icons2/1709/PNG/512/back_112351.png',
+            uri: 'https://w7.pngwing.com/pngs/825/110/png-transparent-computer-icons-arrow-symbol-icon-design-back-angle-text-triangle-thumbnail.png',
           }}
         />
-
         <Text category="h6" style={styles.headerTitle}>
           Select a Tasker
         </Text>
       </View>
-
       <View>
         <Image
           style={styles.settingsImage}
@@ -79,105 +56,140 @@ const Header = () => (
     </View>
   </Layout>
 );
-
-const TaskerItem = ({tasker}) => {
+const TaskerItem = ({ tasker }) => {
   const theme = useTheme();
-
   return (
     <View style={styles.cardMain}>
       <Card style={styles.card}>
         <View style={styles.row}>
           <Avatar source={{ uri: tasker.imageUrl }} style={styles.avatar} />
           <View style={styles.info}>
-            <View style={styles.header}>
-              {tasker.isNew && <Text style={[styles.newBadge, { backgroundColor: theme['color-info-100'], color: theme['color-info-700'] }]}>New</Text>}
-              {tasker.isElite && (
-                <Text style={[styles.eliteBadge, { backgroundColor: theme['color-primary-100'], color: theme['color-primary-700'] }]}>
-                  Elite
-                </Text>
-              )}
-              <Text category="s1" style={styles.name}>{tasker.name}</Text>
-            </View>
-            <View style={styles.ratingContainer}>
-              {/* <Icon name="star" fill={theme['color-warning-500']} style={styles.starIcon} /> */}
-              <Text style={styles.ratingText}>{tasker.rating} ({tasker.reviews} reviews)</Text>
+            <View style={styles.headerCard}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                {tasker.isNew && (
+                  <Text
+                    style={[
+                      styles.newBadge,
+                      {
+                        backgroundColor: theme['color-info-100'],
+                        color: '#0288D1',
+                      },
+                    ]}>
+                    New
+                  </Text>
+                )}
+                {tasker.isElite && (
+                  <Text
+                    style={[
+                      styles.eliteBadge,
+                      {
+                        backgroundColor: '#FFF9C4',
+                        color: '#FBC02D',
+                      },
+                    ]}>
+                    Elite
+                  </Text>
+                )}
+                {tasker.isRating && tasker.isReviews && (
+                  <View style={styles.ratingContainer}>
+                    <Image source={require('../public/images/rating-icon.png')} style={styles.ratingIcon} />
+                    <Text style={styles.ratingText}>
+                      {tasker.rating} ({tasker.reviews} reviews)
+                    </Text>
+                  </View>
+                )}
+              </View>
+              <Text category="s1" style={styles.name}>
+                {tasker.name}
+              </Text>
             </View>
           </View>
         </View>
-        <Text appearance="hint" style={styles.description}>{tasker.description}</Text>
+        <Text appearance="hint" style={styles.description}>
+          {tasker.description}
+        </Text>
         <View style={styles.footer}>
           <View style={styles.avatarContainer}>
             <Avatar
               size="giant"
-              source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7pPA2AjS6AQdktQDzwws9R6gNZehpfWaEXPj4FCjrPgzQ1i5rzuGokl4zp64gAxWMts0&usqp=CAU' }}
+              source={{
+                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7pPA2AjS6AQdktQDzwws9R6gNZehpfWaEXPj4FCjrPgzQ1i5rzuGokl4zp64gAxWMts0&usqp=CAU',
+              }}
               style={styles.avatarIcon}
             />
-            <Text appearance="hint">{tasker.jobs} overall jobs</Text>
+            <Text appearance="hint" style={styles.jobs}>{tasker.jobs} overall jobs</Text>
           </View>
-          <Text style={[styles.price, { backgroundColor: 'rgba(109, 48, 237, 0.1)' }]}>{tasker.price}</Text>
+          <Text
+            style={[
+              styles.price,
+              { backgroundColor: 'rgba(109, 48, 237, 0.1)' },
+            ]}>
+            {tasker.price}
+          </Text>
         </View>
       </Card>
     </View>
   );
 };
-// const TaskerListScreen = () => {
-//   return (
-//     <Layout style={styles.container} level="2">
-//       <FlatList
-//         data={taskers}
-//         keyExtractor={(item) => item.id}
-//         renderItem={({ item }) => <TaskerItem tasker={item} />}
-//       />
-//     </Layout>
-//   );
-// };
 const TaskerList = () => {
   return (
     <Layout style={styles.container} level="2">
       <View style={styles.headerContainer}>
         <Header />
         <View style={styles.filtersContainer}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
-          <Button size="small" appearance="outline" style={styles.filterBadge}>
-            <Text style={styles.filterText}>Within a week</Text>
-            <Image
-              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
-              style={{ width: 14, height: 14 }}
-            />
-          </Button>
-          <Button size="small" appearance="outline" style={styles.filterBadge}>
-            <Text style={styles.filterText}>Flexible</Text>
-            <Image
-              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
-              style={{ width: 14, height: 14 }}
-            />
-          </Button>
-          <Button size="small" appearance="outline" style={styles.filterBadge}>
-            <Text style={styles.filterText}>$10 - $105/hr</Text>
-            <Image
-              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
-              style={{ width: 14, height: 14 }}
-            />
-          </Button>
-          <Button size="small" appearance="outline" style={styles.filterBadge}>
-            <Text style={styles.filterText}>$10 - $105/hr</Text>
-            <Image
-              source={{ uri: 'https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png' }}
-              style={{ width: 14, height: 14 }}
-            />
-          </Button>
-        </ScrollView>
-      </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+            <Button
+              size="small"
+              appearance="outline"
+              style={styles.filterBadge}>
+              <Text style={styles.filterText}>Within a week   </Text>
+              <Image
+                source={{
+                  uri: 'https://cdn-icons-png.flaticon.com/512/251/251319.png',
+                }}
+                style={{ width: 14, height: 14 }}
+              />
+            </Button>
+            <Button
+              size="small"
+              appearance="outline"
+              style={styles.filterBadge}>
+              <Text style={styles.filterText}>Flexible   </Text>
+              <Image
+                source={{
+                  uri: 'https://cdn-icons-png.flaticon.com/512/251/251319.png',
+                }}
+                style={{ width: 14, height: 14 }}
+              />
+            </Button>
+            <Button
+              size="small"
+              appearance="outline"
+              style={styles.filterBadge}>
+              <Text style={styles.filterText}>$10 - $105/hr   </Text>
+              <Image
+                source={{
+                  uri: 'https://cdn-icons-png.flaticon.com/512/251/251319.png',
+                }}
+                style={{ width: 14, height: 14 }}
+              />
+            </Button>
+          </ScrollView>
+        </View>
       </View>
       <FlatList
         data={taskers}
         keyExtractor={item => item.id}
-        renderItem={({item}) => <TaskerItem tasker={item} />}
+        renderItem={({ item }) => <TaskerItem tasker={item} />}
       />
     </Layout>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -186,19 +198,28 @@ const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: '#fff',
     marginBottom: 16,
-    width: "100%",
-    padding: 16,
+    padding: 14,
   },
   header: {
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingVertical: 16,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#d4d4d4',
+    paddingBottom: 8,
+  },
+  backImage:{
+    width: 25,
+    height: 25,
+  },
+  settingsImage: {
+    width: 25,
+    height: 25,
+  },
+  headerCard: {
+    paddingVertical: 16,
     borderBottomColor: '#E4E9F2',
     paddingBottom: 8,
   },
   headerTitle: {
-    textAlign: 'center',
     fontSize: 22,
   },
   filtersContainer: {
@@ -218,13 +239,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     backgroundColor: '#F7F9FC',
-    marginRight: 8,
+    marginRight: 6,
   },
   filterText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#000000',
   },
-  cardMain : {
+  cardMain: {
     padding: 16,
   },
   card: {
@@ -233,7 +254,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -256,29 +277,29 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   eliteBadge: {
-    paddingVertical: 2,
+    paddingVertical: 4,
     paddingHorizontal: 6,
     borderRadius: 12,
-    fontSize: 12,
+    fontSize: 14,
     marginBottom: 4,
-    width: '18%',
+    width: '20%',
   },
   newBadge: {
-    paddingVertical: 2,
+    paddingVertical: 4,
     paddingHorizontal: 6,
     borderRadius: 12,
-    fontSize: 12,
+    fontSize: 14,
     marginBottom: 4,
-    width: '18%',
+    width: '21%',
   },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginLeft: 10,
-    backgroundColor: "#f0f9ff",
-    borderRadius: 5,
+    backgroundColor: "#F0F9FF",
+    borderRadius: 12,
     paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingVertical: 4,
   },
   starIcon: {
     width: 14,
@@ -294,20 +315,6 @@ const styles = StyleSheet.create({
     width: 18,
     height: 18,
     marginRight: 4,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
-  },
-  starIcon: {
-    width: 16,
-    height: 16,
-    marginRight: 4,
-  },
-  ratingText: {
-    fontSize: 14,
-    color: '#8F9BB3',
   },
   description: {
     fontSize: 14,
@@ -327,19 +334,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   avatarIcon: {
+    color: '#181920',
     width: width * 0.05,
     height: width * 0.05,
     borderRadius: (width * 0.05) / 2,
     marginRight: width * 0.01,
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  jobs: {
+    color: '#3b3c40',
+    fontWeight: 'bold',
+    fontSize: 16
   },
   price: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#6d30ed',
+    color: '#6D30ED',
     paddingVertical: 6,
-    paddingHorizontal: 6,
-    borderRadius: 12,
+    paddingHorizontal: 10,
+    borderRadius: 14,
   },
 });
-
 export default TaskerList;

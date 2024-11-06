@@ -4,6 +4,9 @@ import {
   ScrollView,
   View,
   Alert,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 import {
   Layout,
@@ -13,20 +16,20 @@ import {
   Select,
   SelectItem,
 } from '@ui-kitten/components';
-const SocialButton = ({ title, borderColor = '#000', color = '#000' }) => (
-  <Button
-    style={{
-      borderColor,
-      borderWidth: 1,
-      marginBottom: 10,
-      backgroundColor: "white",
-    }}
-    appearance="outline"
-    textStyle={{ color }}
-  >
-    <Text style={{ color }}>{title}</Text>
-  </Button>
+
+import db from "../db.json";
+
+const SocialButton = ({ title, borderColor = '#000', color = '#000', imageSource }) => (
+  <TouchableOpacity style={[styles.socialButton, { borderColor }]} appearance="outline">
+    <View style={styles.buttonContent}>
+      {imageSource && (
+        <Image source={imageSource} style={styles.icon} />
+      )}
+      <Text style={[styles.buttonText, { color }]}>{title}</Text>
+    </View>
+  </TouchableOpacity>
 );
+
 const Registration = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('US');
@@ -34,11 +37,12 @@ const Registration = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showUserDetailsForm, setShowUserDetailsForm] = useState(false);
-  const countries = [
-    { code: 'US', name: 'United States' },
-    { code: 'IN', name: 'India' },
-    { code: 'UK', name: 'United Kingdom' },
-  ];
+  const countries = db?.Registrations?.countries || [];
+  // const countries = [
+  //   { code: 'US', name: 'United States', flag: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwwxhCMpFSg4qToHq_HKLhhU6bo5f1JJPh8w&s' },
+  //   { code: 'IN', name: 'India', flag: 'https://uxwing.com/wp-content/themes/uxwing/download/flags-landmarks/india-flag-icon.png' },
+  //   { code: 'UK', name: 'United Kingdom', flag: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN6NjUzMsxiPYELyWrKg17MA4eLo47fkkM2w&s' },
+  // ];
   const renderCountryOption = (country) => (
     <SelectItem
       key={country.code}
@@ -53,6 +57,11 @@ const Registration = ({ navigation }) => {
     (country) => country.code === selectedCountry
   );
   const handleContinue = () => {
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      Alert.alert('Invalid Phone Number', 'Please enter a valid 10-digit phone number.');
+      return;
+    }
     setShowUserDetailsForm(true);
   };
   const handleSubmit = async () => {
@@ -80,58 +89,91 @@ const Registration = ({ navigation }) => {
     }
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 20 }}>
-        <Layout style={{ flex: 1 }}>
-          <Text category="h1" style={{ marginBottom: 20 }}>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <Layout style={styles.layout}>
+          <Text category="h5" style={styles.headerText}>
             Create an account
           </Text>
           {!showUserDetailsForm ? (
             <>
-              <Text category="s1" style={{ marginBottom: 8 }}>
+              <Text category="s1" style={styles.subHeaderText}>
                 Enter your mobile number:
               </Text>
-              <Layout style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-                <Select
-                  style={{ width: 100, marginRight: 10 }}
-                  selectedIndex={countries.findIndex(country => country.code === selectedCountry)}
-                  onSelect={index => setSelectedCountry(countries[index.row].code)}
+              <Layout style={styles.phoneContainer}>
+                {/* <Select
+                  style={styles.select}
+                  selectedIndex={countries.findIndex(
+                    (country) => country.code === selectedCountry
+                  )}
+                  onSelect={(index) =>
+                    setSelectedCountry(countries[index.row].code)
+                  }
                 >
-                  {countries.map(country => (
+                  {countries.map((country) => (
                     <SelectItem key={country.code} title={country.name} />
                   ))}
+                </Select> */}
+                <Select
+                  style={styles.select}
+                  value={() => (
+                    <View style={styles.option}>
+                      <Image
+                        source={{ uri: selectedCountryData.flag }}
+                        style={styles.flagImage}
+                      />
+                    </View>
+                  )}
+                  selectedIndex={countries.findIndex(
+                    (country) => country.code === selectedCountry
+                  )}
+                  onSelect={(index) =>
+                    setSelectedCountry(countries[index.row].code)
+                  }
+                >
+                  {countries.map(renderCountryOption)}
                 </Select>
                 <Input
-                  style={{ flex: 1 }}
+                  style={styles.input}
                   placeholder="+1 Mobile number"
-                  keyboardType="phone-pad"
+                  keyboardType="numeric"
                   value={phoneNumber}
                   onChangeText={setPhoneNumber}
                 />
               </Layout>
-              <Button
-                style={{
-                  marginBottom: 20,
-                  borderColor: '#6D30ED',
-                  backgroundColor: '#6D30ED',
-                }}
-                onPress={handleContinue}
-              >
+              <Button style={styles.continueButton} onPress={handleContinue}>
                 Continue
               </Button>
-              <Text category="s1" style={{ textAlign: 'center', marginVertical: 10 }}>
+              <Text category="s1" style={styles.orText}>
                 or
               </Text>
-              <SocialButton title="Continue with Apple" borderColor="#5A5C60" color="#5A5C60" />
-              <SocialButton title="Continue with Facebook" borderColor="#5CACE7" color="#5CACE7" />
-              <SocialButton title="Continue with Google" borderColor="#DE3A3E" color="#DE3A3E" />
-              <Text style={{ textAlign: 'center', marginTop: 20 }}>
-                By signing up, you agree to our Terms of Service and Privacy Policy.
+              <SocialButton
+                title="Continue with Apple"
+                borderColor="#5A5C60"
+                color="#5A5C60"
+                imageSource={require('../public/images/apple-icon.png')}
+              />
+              <SocialButton
+                title="Continue with Facebook"
+                borderColor="#5CACE7"
+                color="#5CACE7"
+                imageSource={require('../public/images/fb-icon.png')}
+              />
+              <SocialButton
+                title="Continue with Google"
+                borderColor="#DE3A3E"
+                color="#DE3A3E"
+                imageSource={require('../public/images/google-icon.png')}
+              />
+              <Text style={styles.agreementText}>
+                By signing up, you agree to our{" "}
+                <Text style={styles.agreementUnderlineText}>Terms of Service</Text> and{" "}
+                <Text style={styles.agreementUnderlineText}>Privacy Policy</Text>.
               </Text>
             </>
           ) : (
             <>
-              <Text category="s1" style={{ marginBottom: 8 }}>
+              <Text category="s1" style={styles.subHeaderText}>
                 Enter your details:
               </Text>
               <Input
@@ -154,20 +196,13 @@ const Registration = ({ navigation }) => {
                 secureTextEntry
                 style={{ marginBottom: 20 }}
               />
-              <Button
-                style={{
-                  marginBottom: 20,
-                  borderColor: '#6D30ED',
-                  backgroundColor: '#6D30ED',
-                }}
-                onPress={handleSubmit}
-              >
+              <Button style={styles.submitButton} onPress={handleSubmit}>
                 Submit
               </Button>
             </>
           )}
           <View style={styles.footer}>
-            <Text>Already have an account?<Text style={styles.footerUnderlineText}>Log in</Text></Text>
+            <Text style={{ fontSize: 18, fontWeight: 'normal' }}>Already had an account?   <Text style={styles.footerUnderlineText}>Log in</Text></Text>
             {/* <Button appearance="ghost"></Button> */}
           </View>
         </Layout>
@@ -219,7 +254,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   continueButton: {
-    marginBottom: 20,
     borderColor: "#6D30ED",
     backgroundColor: "#6D30ED",
   },
@@ -230,11 +264,30 @@ const styles = StyleSheet.create({
   socialButton: {
     marginBottom: 10,
     backgroundColor: "white",
-    borderWidth: 1,
+    height: 45,
+    borderWidth: 1.2,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 14,
+    marginVertical: 10,
+  },
+  buttonText: {
+    fontWeight: 600, 
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
   },
   agreementText: {
     textAlign: 'center',
     marginTop: 20,
+    paddingHorizontal: 45,
     color: '#A4A6B0',
   },
   agreementUnderlineText: {
@@ -252,9 +305,10 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   footerUnderlineText: {
-    marginLeft: 10,
     color: '#3598E7',
     textDecorationLine: 'underline',
+    fontSize: 18,
+    fontWeight: 'normal'
   }
 });
 export default Registration;

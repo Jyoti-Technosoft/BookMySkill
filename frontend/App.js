@@ -5,6 +5,7 @@ import { ApplicationProvider, Icon, IconRegistry } from '@ui-kitten/components';
 // import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import SplashScreen from './Component/SplashScreen';
 import TaskerList from './Component/TaskerList';
 import Registration from './Component/Registrations';
@@ -19,9 +20,10 @@ import ReviewConfirm from './Component/ReviewConfirm';
 import TaskDetails from './Component/TaskDetails';
 import TaskCompleted from './Component/TaskCompleted';
 import TaskerRating from './Component/TaskerRating';
-import TaskerProfileScreen from './Component/TaskerProfile';
-import ProfileScreen from './Component/ProfileScreen';
+import TaskerProfile from './Component/TaskerProfile';
+import Profile from './Component/Profile';
 import PaymentPage from './Component/PaymentPage';
+
 const Stack = createStackNavigator();
 // const IconUsage = () => (
 //   <Icon name="code-outline" fill="#FF6721" />
@@ -45,8 +47,8 @@ const App = () => {
         {/* <TaskDetails/> */}
         {/* <TaskCompleted/> */}
         {/* <TaskerRating/> */}
-        {/* <TaskerProfileScreen/> */}
-        {/* <ProfileScreen/> */}
+        {/* <TaskerProfile/> */}
+        <Profile/>
         {/* <PaymentPage/> */}
 
         {/* <NavigationContainer>

@@ -73,5 +73,160 @@
                 "location": "Seminyak Beach, Bali, Indonesia"
             }
         ]
+    },
+    "Registrations": {
+        "countries": [
+            {
+                "code": "US",
+                "name": "United States",
+                "flag": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwwxhCMpFSg4qToHq_HKLhhU6bo5f1JJPh8w&s"
+            },
+            {
+                "code": "IN",
+                "name": "India",
+                "flag": "https://uxwing.com/wp-content/themes/uxwing/download/flags-landmarks/india-flag-icon.png"
+            },
+            {
+                "code": "UK",
+                "name": "United Kingdom",
+                "flag": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN6NjUzMsxiPYELyWrKg17MA4eLo47fkkM2w&s"
+            }
+        ]
+    },
+    "TrainerList": {
+        "trainers": [
+            {
+                "name": "Box Trainer",
+                "availability": "500 available"
+            },
+            {
+                "name": "Muay Thai",
+                "availability": "250 available"
+            },
+            {
+                "name": "Brazilian Jiu-Jitsu",
+                "availability": "423 available"
+            },
+            {
+                "name": "MMA",
+                "availability": "240 available"
+            }
+        ]
+    },
+    "TaskerList": {
+        "taskers": [
+            {
+                "id": "1",
+                "name": "Sam Kusuma",
+                "description": "Hey, I’m Sam, your easygoing surf instructor here to make sure you have a blast while catching some waves. With over ten years of surfing experience, I’ve got the tricks ...",
+                "jobs": 3,
+                "price": "$15/hr",
+                "isNew": true,
+                "isElite": false,
+                "rating": 4.8,
+                "reviews": 42,
+                "isRating": false,
+                "isReviews": false,
+                "imageUrl": "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+            },
+            {
+                "id": "2",
+                "name": "Elizabeth Santoso",
+                "description": "Hi, I’m Eli, your fearless surf teacher breaking stereotypes one wave at a time. I bring a contagious energy to every lesson, empowering you to conquer the surf with ...",
+                "jobs": 0,
+                "price": "$10/hr",
+                "isNew": true,
+                "isElite": false,
+                "rating": 4.6,
+                "reviews": 35,
+                "isRating": false,
+                "isReviews": false,
+                "imageUrl": "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+            },
+            {
+                "id": "3",
+                "name": "Aubrey Jones",
+                "description": "Hi, I’m Aubrey, your surf guide ensuring you experience the best of what the ocean has to offer. My teaching style is both fun and patient ...",
+                "jobs": 32,
+                "price": "$25/hr",
+                "isNew": false,
+                "isElite": true,
+                "rating": 4.8,
+                "reviews": 42,
+                "isRating": true,
+                "isReviews": true,
+                "imageUrl": "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+            }
+        ]
+    },
+    "TaskerProfile": {
+        "reviews": [
+            {
+                "id": 1,
+                "name": "John King",
+                "date": "A day ago",
+                "rating": 5,
+                "review": "Incredible experience! The surf session with Ashley was beyond amazing. Their guidance and expertise helped me catch waves I never thought possible. Highly recommend!",
+                "avatar": "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+            },
+            {
+                "id": 2,
+                "name": "Jennifer Harris",
+                "date": "A day ago",
+                "rating": 4,
+                "review": "Ashley was late 30 minutes. Nevertheless, she was super friendly and made me feel at ease right away. She’s patient, encouraging, and really knows her stuff.",
+                "avatar": "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+            }
+        ]
+    },
+    "TaskDetails": {
+        "messages": [
+            {
+                "id": 1,
+                "text": "Hello James, can't wait for our first session together! Let's meet at the entrance to the Seminyak Beach, in front of Gado Gado restaurant.",
+                "sender": "Ashley Hidayat",
+                "time": "08:23 PM"
+            },
+            {
+                "id": 2,
+                "text": "Hello Ashley, sure, I’ll be there! Can’t wait for my first session ever.",
+                "sender": "You",
+                "time": "08:32 PM"
+            },
+            {
+                "id": 3,
+                "text": "Amazing, see you soon! :)",
+                "sender": "Ashley Hidayat",
+                "time": "08:33 PM"
+            }
+        ]
+    },
+    "TaskCompleted": {
+        "tasks": [
+            {
+                "title": "Surf teacher",
+                "name": "Ashley Hidayat",
+                "date": "Friday, February 8, 2024",
+                "time": "09:50 AM - 11:00 AM",
+                "buttonText": "Rate",
+                "imageUrl": "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+            },
+            {
+                "title": "Box trainer",
+                "name": "David Wijaya",
+                "date": "Tuesday, January 21, 2023",
+                "time": "14:00 PM - 16:00 PM",
+                "buttonText": "Book Again",
+                "imageUrl": "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+            },
+            {
+                "title": "Massage therapist",
+                "name": "Sarah Suryadi",
+                "date": "Thursday, November 12, 2022",
+                "time": "13:00 PM - 15:00 PM",
+                "buttonText": "Book Again",
+                "imageUrl": "https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+            }
+        ]
     }
 }

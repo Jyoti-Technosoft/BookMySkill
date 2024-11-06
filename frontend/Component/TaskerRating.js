@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, View, ScrollView } from 'react-native';
+import { Image, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Layout, Text, Button, Input, Modal, Card } from '@ui-kitten/components';
 
 const TaskerRating = () => {
@@ -103,9 +103,9 @@ const TaskerRating = () => {
                                 source={require('../public/images/comment-img2.png')}
                                 style={styles.commentImage}
                             />
-                            <Button style={styles.addPhotoButton} appearance="outline" status="primary">
+                            <TouchableOpacity style={styles.addPhotoButton} appearance="outline" status="primary">
                                 <Text style={{ color: '#6d30ed' }}>Add Photo</Text>
-                            </Button>
+                            </TouchableOpacity>
                         </Layout>
                     </Layout>
                 </Layout>
@@ -129,16 +129,16 @@ const TaskerRating = () => {
                     <Text appearance="hint" style={styles.modalHint}>
                         Thank you for your review.
                     </Text>
-                    <Button onPress={closeModal} style={styles.modalButton}>
-                        <Text style={{ textAlign: 'center' }}>Back to Home</Text>
-                    </Button>
+                    <TouchableOpacity style={styles.modalButton} onPress={closeModal}>
+                        <Text style={styles.buttonText}>Back to Home</Text>
+                    </TouchableOpacity>
                 </Card>
             </Modal>
         </Layout>
     );
 };
 
-const styles = {
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f8f9fb',
@@ -182,7 +182,7 @@ const styles = {
     starImage: {
         width: 120,
         height: 24,
-        marginVertical: 10,
+        marginVertical: 10
     },
     reviewsLayout: {
         marginBottom: 20,
@@ -278,14 +278,16 @@ const styles = {
         borderRadius: 20,
     },
     successImage: {
-        width: 80,
-        height: 80,
+        width: 100,
+        height: 100,
+        marginTop: 30,
         marginBottom: 20,
         alignSelf: 'center',
         justifyContent: 'center',
         display: 'flex',
     },
     successText: {
+        color: '#181c20',
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -293,17 +295,32 @@ const styles = {
     },
     modalHint: {
         fontSize: 16,
-        color: '#6e6e6e',
+        color: '#989ba6',
         textAlign: 'center',
         marginBottom: 30,
     },
+    // modalButton: {
+    //     width: '100%',
+    //     borderRadius: 25,
+    //     backgroundColor: '#6d30ed',
+    //     borderColor: 'transparent',
+    //     // paddingVertical: 10,
+    // },
     modalButton: {
         width: '100%',
+        height: 50,
         borderRadius: 25,
         backgroundColor: '#6d30ed',
         borderColor: 'transparent',
-        // paddingVertical: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 100,
     },
-};
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center',
+    },
+});
 
 export default TaskerRating;

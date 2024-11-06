@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { Layout, Text, Divider, Button, Icon } from '@ui-kitten/components';
 const PaymentPage = () => {
     return (
@@ -42,7 +42,7 @@ const PaymentPage = () => {
         </Layout>
     );
 };
-const styles = {
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
@@ -116,5 +116,5 @@ const styles = {
         borderWidth: 0,
         borderRadius: 10,
     },
-};
+});
 export default PaymentPage;

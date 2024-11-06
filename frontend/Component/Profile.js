@@ -2,28 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import { Layout, Text, Button, Divider, ListItem } from '@ui-kitten/components';
 
-const ProfileScreen = () => {
+const Profile = () => {
     const [activeTab, setActiveTab] = useState('Profile');
-
-    //   const renderIcon = (props) => (
-    //     <Icon {...props} fill="#9F8BFD" style={{ width: 28, height: 28 }} name="arrow-ios-forward-outline" />
-    //   );
-
-    //   const renderPaymentIcon = (props) => (
-    //     <Icon {...props} fill="#9F8BFD" style={{ width: 28, height: 28 }} name="credit-card-outline" />
-    //   );
-
-    //   const renderPromoIcon = (props) => (
-    //     <Icon {...props} fill="#9F8BFD" style={{ width: 28, height: 28 }} name="gift-outline" />
-    //   );
-
-    //   const renderSettingsIcon = (props) => (
-    //     <Icon {...props} fill="#9F8BFD" style={{ width: 28, height: 28 }} name="settings-outline" />
-    //   );
-
-    //   const renderSupportIcon = (props) => (
-    //     <Icon {...props} fill="#9F8BFD" style={{ width: 28, height: 28 }} name="question-mark-circle-outline" />
-    //   );
 
     const handleNavigation = (tab) => {
         setActiveTab(tab);
@@ -71,7 +51,9 @@ const ProfileScreen = () => {
                         <Text category='h5' style={styles.name}>James Harrid</Text>
                         <Text category='s1' style={styles.email}>jamesharid@yahoo.com</Text>
                     </View>
-                    <Button appearance='outline' size="medium" style={styles.editButton}>Edit Profile</Button>
+                    <TouchableOpacity appearance='outline' size="medium" style={styles.editButton}>
+                        <Text style={styles.buttonText}>Edit Profile</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <Divider style={styles.divider} />
@@ -82,30 +64,50 @@ const ProfileScreen = () => {
             </View>
             <Layout style={styles.container}>
                 <View style={styles.menuContainer}>
-                    <ListItem
-                        title='Payments'
-                        // accessoryLeft={renderPaymentIcon}
-                        // accessoryRight={renderIcon}
-                        style={styles.menuItem}
-                    />
-                    <ListItem
-                        title='Your Promos'
-                        // accessoryLeft={renderPromoIcon}
-                        // accessoryRight={renderIcon}
-                        style={styles.menuItem}
-                    />
-                    <ListItem
-                        title='Settings'
-                        // accessoryLeft={renderSettingsIcon}
-                        // accessoryRight={renderIcon}
-                        style={styles.menuItem}
-                    />
-                    <ListItem
-                        title='Support'
-                        // accessoryLeft={renderSupportIcon}
-                        // accessoryRight={renderIcon}
-                        style={styles.menuItem}
-                    />
+                    <View style={styles.menuItem}>
+                        <Image
+                            source={require('../public/images/payment-icon.png')}
+                            style={styles.leftImg}
+                        />
+                        <Text style={styles.menuText}>Payments</Text>
+                        <Image
+                            source={require('../public/images/arrow-icon.png')}
+                            style={styles.rightImg}
+                        />
+                    </View>
+                    <View style={styles.menuItem}>
+                        <Image
+                            source={require('../public/images/promos-icon.png')}
+                            style={styles.leftImg}
+                        />
+                        <Text style={styles.menuText}>Your Promos</Text>
+                        <Image
+                            source={require('../public/images/arrow-icon.png')}
+                            style={styles.rightImg}
+                        />
+                    </View>
+                    <View style={styles.menuItem}>
+                        <Image
+                            source={require('../public/images/setting-circle-icon.png')}
+                            style={styles.leftImg}
+                        />
+                        <Text style={styles.menuText}>Settings</Text>
+                        <Image
+                            source={require('../public/images/arrow-icon.png')}
+                            style={styles.rightImg}
+                        />
+                    </View>
+                    <View style={styles.menuItem}>
+                        <Image
+                            source={require('../public/images/support-icon.png')}
+                            style={styles.leftImg}
+                        />
+                        <Text style={styles.menuText}>Support</Text>
+                        <Image
+                            source={require('../public/images/arrow-icon.png')}
+                            style={styles.rightImg}
+                        />
+                    </View>
                 </View>
             </Layout>
             <BottomNavBar navigation={{ navigate: handleNavigation }} activeTab={activeTab} />
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F7F9FC',
-        padding: 20
+        paddingHorizontal: 20
     },
     profileContainer: {
         backgroundColor: '#fff',
@@ -154,17 +156,27 @@ const styles = StyleSheet.create({
     },
     editButton: {
         borderColor: '#000000',
-        paddingHorizontal: 10,
         backgroundColor: '#fff',
         height: 45,
-        color: '#000000'
+        borderWidth: 1,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 8,
+        paddingvertical: 6,
+        marginVertical: 10,
+    },
+    buttonText: {
+        fontSize: 16,
+        color: '#000000',
+        fontWeight: '600',
+        textAlign: 'center',
     },
     bio: {
         textAlign: 'left',
         color: '#5d6270',
         marginVertical: 10,
         fontSize: 16,
-        // paddingHorizontal: 10,
     },
     divider: {
         backgroundColor: '#E4E9F2',
@@ -172,14 +184,31 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     menuContainer: {
-        borderRadius: 8,
-        overflow: 'hidden',
-        paddingVertical: 5,
+        flex: 1,
+        marginTop: 20,
     },
     menuItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
         backgroundColor: '#FFFFFF',
         paddingVertical: 15,
+        borderRadius: 12,
         marginBottom: 10,
+        padding: 10
+    },
+    leftImg: {
+        width: 40,
+        height: 40,
+        marginHorizontal: 10,
+    },
+    rightImg: {
+        width: 20,
+        height: 20,
+    },
+    menuText: {
+        flex: 1,
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     navBar: {
         flexDirection: 'row',
@@ -206,4 +235,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ProfileScreen;
+export default Profile;
