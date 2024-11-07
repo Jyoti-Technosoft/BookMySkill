@@ -46,10 +46,10 @@ const App = () => {
         {/* <TaskCompleted/> */}
         {/* <TaskerRating/> */}
         {/* <TaskerProfile/> */}
-        <Profile/>
+        {/* <Profile/> */}
         {/* <PaymentPage/> */}
 
-        {/* <NavigationContainer>
+        <NavigationContainer>
           <Stack.Navigator initialRouteName="Splash">
             <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Registration" component={Registration} options={{ headerShown: false }} />
@@ -62,8 +62,14 @@ const App = () => {
             <Stack.Screen name="BookingPage" component={BookingPage} options={{ headerShown: false }} />
             <Stack.Screen name="TaskerList" component={TaskerList} options={{ headerShown: false }} />
             <Stack.Screen name="ReviewConfirm" component={ReviewConfirm} options={{ headerShown: false }} />
+            <Stack.Screen name="TaskCompleted" component={TaskCompleted} options={{ headerShown: false }} />
+            <Stack.Screen name="TaskerProfile" component={TaskerProfile} options={{ headerShown: false }} />
+            <Stack.Screen name="PaymentPage" component={PaymentPage} options={{ headerShown: false }} />
+            <Stack.Screen name="TaskDetails" component={TaskDetails} options={{ headerShown: false }} />
+            <Stack.Screen name="TaskerRating" component={TaskerRating} options={{ headerShown: false }} />
+            <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
           </Stack.Navigator>
-        </NavigationContainer> */}
+        </NavigationContainer>
       </ApplicationProvider>
     </>
   );

@@ -4,7 +4,7 @@ import { View, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-nat
 
 import db from "../db.json";
 
-const TaskCompleted = () => {
+const TaskCompleted = ({ navigation }) => {
     const [activeTab, setActiveTab] = useState('Tasks');
     const [selectedIndex, setSelectedIndex] = useState(1);
 
@@ -106,6 +106,7 @@ const TaskCompleted = () => {
                                 </View>
                                 {/* <Button style={styles.button}>{task.buttonText}</Button> */}
                                 <TouchableOpacity
+                                onPress={() => navigation.navigate('TaskerRating')}
                                     style={task.buttonText === 'Rate' ? styles.rateButton : styles.bookAgainButton}
                                 >
                                     <Text style={task.buttonText === 'Rate' ? styles.buttonTextRate : styles.buttonTextBookAgain}>

@@ -4,20 +4,20 @@ import { Layout, Card, Icon, Tab, TabView } from '@ui-kitten/components';
 
 import db from "../db.json";
 
-const TaskDetails = () => {
+const TaskDetails = ({ navigation }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const waitinlines = db?.reviewconfirm?.waitinline || [];
     const [message, setMessage] = useState('');
     const messages = db?.TaskDetails?.messages
 
-    const BottomBar = () => {
+    const BottomBar = ({ navigation }) => {
         return (
             <View style={styles.bottomBar}>
                 <TouchableOpacity
                     style={styles.newTaskerButton}
                     // appearance="outline"
                     // status="primary"
-                    onPress={() => alert('Find a New Tasker')}
+                    onPress={() => navigation.navigate('TaskerList')}
                 >
                     <Text style={styles.newTaskerText}>Find a New Tasker</Text>
                 </TouchableOpacity>
@@ -138,7 +138,7 @@ const TaskDetails = () => {
                                 <Text style={styles.totalValue} category="h5">$48.00/hr</Text>
                             </View>
                         </Card>
-                        <BottomBar />
+                        <BottomBar navigation={navigation}/>
                     </Layout>
                 </Tab>
 

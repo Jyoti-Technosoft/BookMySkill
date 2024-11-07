@@ -5,12 +5,12 @@ import { Image, StyleSheet, TouchableOpacity, View, FlatList } from 'react-nativ
 
 import db from "../db.json"
 
-const Category = () => {
+const Category = ({ navigation }) => {
   const categories = db?.categorypage?.categories;
   const taskers = db?.categorypage?.taskers;
   // const navigation = useNavigation(); 
-  const navigation = "";
-  const [activeTab, setActiveTab] = useState('Home');
+  // const navigation = "";
+  const [activeTab, setActiveTab] = useState('Category');
 
   // const renderIcon = (props) => (
   //   <Icon {...props} name='search' style={styles.icon} fill='#6A33F8' />
@@ -18,7 +18,7 @@ const Category = () => {
 
   const handleNavigation = (tab) => {
     setActiveTab(tab);
-    // navigation.navigate(tab);
+    navigation.navigate(tab, { key: Date.now().toString() });
   };
 
   const getImage = (imageName) => {
@@ -62,40 +62,39 @@ const Category = () => {
     </Card>
   );
 
-  const BottomNavBar = ({ navigation, activeTab }) => {
+  const BottomNavBar = ({ navigation, activeTab, handleNavigation }) => {
     return (
       <View style={styles.navBar}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.navItemContainer}>
-          {/* <Image
-            source={require('../public/images/home-icon.png')}
-            style={styles.icon}
-          /> */}
+        <TouchableOpacity
+          onPress={() => handleNavigation('Category')}
+          style={styles.navItemContainer}
+        >
           <Icon
-            name='home-outline'
+            name="home-outline"
             style={styles.icon}
-            fill={activeTab === 'Home' ? '#6A33F8' : 'gray'}
+            fill={activeTab === 'Category' ? '#6A33F8' : 'gray'}
           />
-          <Text style={[styles.navItem, activeTab === 'Home' && styles.activeNavItem]}>Home</Text>
+          <Text style={[styles.navItem, activeTab === 'Category' && styles.activeNavItem]}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Tasks')} style={styles.navItemContainer}>
-          {/* <Image
-            source={require('../public/images/tasks-icon.png')}
-            style={styles.icon}
-          /> */}
+  
+        <TouchableOpacity
+          onPress={() => handleNavigation('TaskCompleted')}
+          style={styles.navItemContainer}
+        >
           <Icon
-            name='clipboard-outline'
+            name="clipboard-outline"
             style={styles.icon}
-            fill={activeTab === 'Tasks' ? '#6A33F8' : 'gray'}
+            fill={activeTab === 'TaskCompleted' ? '#6A33F8' : 'gray'}
           />
-          <Text style={[styles.navItem, activeTab === 'Tasks' && styles.activeNavItem]}>Tasks</Text>
+          <Text style={[styles.navItem, activeTab === 'TaskCompleted' && styles.activeNavItem]}>Tasks</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.navItemContainer}>
-          {/* <Image
-            source={require('../public/images/profile-icon.png')}
-            style={styles.icon}
-          /> */}
+  
+        <TouchableOpacity
+          onPress={() => handleNavigation('Profile')}
+          style={styles.navItemContainer}
+        >
           <Icon
-            name='person-outline'
+            name="person-outline"
             style={styles.icon}
             fill={activeTab === 'Profile' ? '#6A33F8' : 'gray'}
           />
@@ -152,13 +151,14 @@ const Category = () => {
               style={styles.searchInput}
               accessoryLeft={() => (
                 <View style={styles.searchiconContainer}>
-                <Icon
-                  name='search-outline'
-                  style={styles.searchIcon}
-                  fill='white'
-                />
-              </View>
+                  <Icon
+                    name='search-outline'
+                    style={styles.searchIcon}
+                    fill='white'
+                  />
+                </View>
               )}
+              onFocus={() => navigation.navigate('TrainerList')}
             />
             <Layout style={styles.categorysection}>
               <Text category='h5' style={[styles.sectionTitle, styles.sectionTitleCategory]}>Popular Category</Text>
@@ -197,7 +197,7 @@ const Category = () => {
           </Layout>
         )}
       />
-      <BottomNavBar navigation={{ navigate: handleNavigation }} activeTab={activeTab} />
+      <BottomNavBar handleNavigation={handleNavigation} activeTab={activeTab} setActiveTab={setActiveTab} />
     </Layout>
 
   );

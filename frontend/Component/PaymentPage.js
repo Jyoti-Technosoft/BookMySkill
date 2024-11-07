@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { Layout, Text, Divider, Button, Icon } from '@ui-kitten/components';
-const PaymentPage = () => {
+const PaymentPage = ({ navigation }) => {
     return (
         <Layout style={styles.container}>
             {/* <View style={styles.imageContainer}>
@@ -38,7 +38,9 @@ const PaymentPage = () => {
                 {/* <Icon name="file-text-outline" fill="#8F9BB3" style={styles.buttonIcon} /> */}
                 <Text style={styles.receiptButtonText}>Get PDF receipt</Text>
             </TouchableOpacity>
-            <Button style={styles.viewBookingButton}>View booking</Button>
+            <Button style={styles.viewBookingButton} onPress={() => {
+                navigation.navigate('TaskDetails');
+            }}>View booking</Button>
         </Layout>
     );
 };
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#6D30ED',
         borderWidth: 0,
-        borderRadius: 10,
+        borderRadius: 8,
     },
 });
 export default PaymentPage;

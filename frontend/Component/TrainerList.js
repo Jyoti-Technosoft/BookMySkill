@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Text, Icon, Avatar, Card, Button } from '@ui-kitten/components';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import db from "../db.json";
 
@@ -9,17 +9,22 @@ const TrainerList = ({ navigation }) => {
 
   const renderCard = (trainer, index) => (
     <Card key={index} style={styles.card}>
-      <View style={styles.cardContent}>
-        <Avatar
-          size="giant"
-          source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnf6cL8GXTWCK2m6ODDkQqv9SBur-ttRglwRP_VBepbAbva6xshq8Xpa3riXXhfgedU-w&usqp=CAU' }}
-          style={styles.avatar}
-        />
-        <View>
-          <Text category="h6">{trainer.name}</Text>
-          <Text appearance="hint">{trainer.availability}</Text>
+      <TouchableOpacity
+        key={index}
+        onPress={() => navigation.navigate('SearchVenues')}
+      >
+        <View style={styles.cardContent}>
+          <Avatar
+            size="giant"
+            source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnf6cL8GXTWCK2m6ODDkQqv9SBur-ttRglwRP_VBepbAbva6xshq8Xpa3riXXhfgedU-w&usqp=CAU' }}
+            style={styles.avatar}
+          />
+          <View>
+            <Text category="h6">{trainer.name}</Text>
+            <Text appearance="hint">{trainer.availability}</Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </Card>
   );
 

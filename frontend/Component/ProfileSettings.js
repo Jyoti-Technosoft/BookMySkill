@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Layout, Input, Button, Avatar, Icon } from '@ui-kitten/components';
-import { StyleSheet, View, TouchableOpacity, Text, Dimensions } from 'react-native';
+import { Layout, Input, Button, Avatar, Icon, Text } from '@ui-kitten/components';
+import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,12 +12,55 @@ const ProfileSettings = ({ navigation }) => {
   const [birthday, setBirthday] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
+  const [errors, setErrors] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    password: '',
+    birthday: '',
+  });
+
   const handleClose = () => {
-    window.location.reload();
+    navigation.replace('Login');
   };
 
   const handleSave = () => {
-    console.log({ name, phone, email, password, birthday });
+    // Validate inputs before saving
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length === 0) {
+      // If there are no errors, proceed with saving
+      navigation.replace('Category');
+    } else {
+      setErrors(validationErrors);
+    }
+  };
+
+  const validateForm = () => {
+    let validationErrors = {};
+
+    if (!name.trim()) {
+      validationErrors.name = 'Name is required';
+    }
+
+    const phonePattern = /^[0-9]{10}$/;
+    if (!phonePattern.test(phone)) {
+      validationErrors.phone = 'Please enter a valid phone number';
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      validationErrors.email = 'Please enter a valid email address';
+    }
+
+    if (password.length < 6) {
+      validationErrors.password = 'Password must be at least 6 characters long';
+    }
+
+    if (!birthday.trim()) {
+      validationErrors.birthday = 'Please enter a valid birthday';
+    }
+
+    return validationErrors;
   };
 
   const toggleSecureEntry = () => {
@@ -81,7 +124,10 @@ const ProfileSettings = ({ navigation }) => {
           onChangeText={setName}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
+          status={errors.name ? 'danger' : 'basic'}
         />
+        {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
+
         <Input
           label="Phone"
           placeholder="Enter your phone"
@@ -89,7 +135,10 @@ const ProfileSettings = ({ navigation }) => {
           onChangeText={setPhone}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
+          status={errors.phone ? 'danger' : 'basic'}
         />
+        {errors.phone && <Text style={styles.errorText}>{errors.phone}</Text>}
+
         <Input
           label="Email"
           placeholder="Enter your email"
@@ -97,7 +146,10 @@ const ProfileSettings = ({ navigation }) => {
           onChangeText={setEmail}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
+          status={errors.email ? 'danger' : 'basic'}
         />
+        {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
+
         <Input
           label="Password"
           placeholder="Enter your password"
@@ -107,7 +159,10 @@ const ProfileSettings = ({ navigation }) => {
           accessoryRight={renderEyeIcon}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
+          status={errors.password ? 'danger' : 'basic'}
         />
+        {errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
+
         <Input
           label="Birthday"
           placeholder="Set Birthday"
@@ -115,7 +170,10 @@ const ProfileSettings = ({ navigation }) => {
           onChangeText={setBirthday}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
+          status={errors.birthday ? 'danger' : 'basic'}
         />
+        {errors.birthday && <Text style={styles.errorText}>{errors.birthday}</Text>}
+
         <Button style={styles.saveButton} onPress={handleSave}>
           Save changes
         </Button>
@@ -204,6 +262,11 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginBottom: height * 0.01,
   },
 });
 

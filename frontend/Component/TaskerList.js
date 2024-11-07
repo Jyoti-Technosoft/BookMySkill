@@ -23,7 +23,7 @@ import db from "../db.json";
 
 const taskers = db?.TaskerList?.taskers || [];
 
-const Header = () => (
+const Header = ({ navigation }) => (
   <Layout style={styles.header} level="1">
     <View
       style={{
@@ -54,11 +54,14 @@ const Header = () => (
     </View>
   </Layout>
 );
-const TaskerItem = ({ tasker }) => {
+const TaskerItem = ({ tasker, navigation }) => {
   const theme = useTheme();
   return (
-    <View style={styles.cardMain}>
-      <Card style={styles.card}>
+    <Card style={styles.card}>
+        <TouchableOpacity
+          style={styles.cardMain}
+          onPress={() => navigation.navigate('TaskerProfile')}
+        >
         <View style={styles.row}>
           <Avatar source={{ uri: tasker.imageUrl }} style={styles.avatar} />
           <View style={styles.info}>
@@ -130,15 +133,15 @@ const TaskerItem = ({ tasker }) => {
             {tasker.price}
           </Text>
         </View>
+    </TouchableOpacity>
       </Card>
-    </View>
   );
 };
-const TaskerList = () => {
+const TaskerList = ({ navigation }) => {
   return (
-    <Layout style={styles.container} level="2">
+    <Layout style={styles.container}>
       <View style={styles.headerContainer}>
-        <Header />
+        <Header navigation={navigation}/>
         <View style={styles.filtersContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={true}>
             <TouchableOpacity
@@ -178,7 +181,7 @@ const TaskerList = () => {
       <FlatList
         data={taskers}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <TaskerItem tasker={item} />}
+        renderItem={({ item }) => <TaskerItem tasker={item} navigation={navigation}/>}
       />
     </Layout>
   );
@@ -194,10 +197,9 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   header: {
-    paddingVertical: 16,
     borderBottomWidth: 0.5,
     borderBottomColor: '#d4d4d4',
-    paddingBottom: 8,
+    paddingBottom: 10,
   },
   backImage: {
     width: 30,
