@@ -6,48 +6,49 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  // const [emailError, setEmailError] = useState('');
-  // const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const handleLogin = async () => {
-    navigation.replace('ProfileSetting');
-    // setEmailError('');
-    // setPasswordError('');
+    // navigation.replace('ProfileSetting');
+    setEmailError('');
+    setPasswordError('');
 
-    // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    // if (!email) {
-    //   setEmailError('Email is required');
-    //   return;
-    // }
-    // if (!emailRegex.test(email)) {
-    //   setEmailError('Please enter a valid email address');
-    //   return;
-    // }
-    // if (!password) {
-    //   setPasswordError('Password is required');
-    //   return;
-    // }
-    // if (password.length < 6) {
-    //   setPasswordError('Password must be at least 6 characters long');
-    //   return;
-    // }
+    if (!email) {
+      setEmailError('Email is required');
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address');
+      return;
+    }
+    if (!password) {
+      setPasswordError('Password is required');
+      return;
+    }
+    if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters long');
+      return;
+    }
     try {
-      console.log('payload:', JSON.stringify({ email, password }));
-      const response = await fetch('http://localhost:5000/user/login', {
+      const response = await fetch('http://10.0.2.2:5000/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-      // if (!response.ok) {
-      //   throw new Error('Invalid username or password.');
-      // }
-      // const data = await response.json();
-      // Alert.alert('Login Successful', `Welcome, ${data.email}!`);
+      if (response.ok) {
+        const data = await response.json();
+        navigation.replace('ProfileSetting');
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Invalid username or password');
+      }
     } catch (error) {
-      // Alert.alert('Login Failed', error.message);
+      Alert.alert('Login Failed', error.message);
     }
   };
 
@@ -78,8 +79,8 @@ const Login = ({ navigation }) => {
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
-        // status={emailError ? 'danger' : 'basic'}
-        // caption={emailError}
+        status={emailError ? 'danger' : 'basic'}
+        caption={emailError}
       />
       <Input
         label="Password"
@@ -89,8 +90,8 @@ const Login = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry={secureTextEntry}
         accessoryRight={renderEyeIcon}
-        // status={passwordError ? 'danger' : 'basic'}
-        // caption={passwordError}
+        status={passwordError ? 'danger' : 'basic'}
+        caption={passwordError}
       />
       <Button onPress={handleLogin} style={styles.button}>
         Login
