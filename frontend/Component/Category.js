@@ -1,25 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import { Layout, Text, Input, Card, Icon, Avatar } from '@ui-kitten/components';
-import { Image, StyleSheet, TouchableOpacity, View, FlatList } from 'react-native';
+import { Image, StyleSheet, View, FlatList } from 'react-native';
 
 import db from "../db.json"
 
 const Category = ({ navigation }) => {
   const categories = db?.categorypage?.categories;
   const taskers = db?.categorypage?.taskers;
-  // const navigation = useNavigation(); 
-  // const navigation = "";
-  const [activeTab, setActiveTab] = useState('Category');
-
-  // const renderIcon = (props) => (
-  //   <Icon {...props} name='search' style={styles.icon} fill='#6A33F8' />
-  // );
-
-  const handleNavigation = (tab) => {
-    setActiveTab(tab);
-    navigation.navigate(tab, { key: Date.now().toString() });
-  };
 
   const getImage = (imageName) => {
     switch (imageName) {
@@ -62,48 +49,6 @@ const Category = ({ navigation }) => {
     </Card>
   );
 
-  const BottomNavBar = ({ navigation, activeTab, handleNavigation }) => {
-    return (
-      <View style={styles.navBar}>
-        <TouchableOpacity
-          onPress={() => handleNavigation('Category')}
-          style={styles.navItemContainer}
-        >
-          <Icon
-            name="home-outline"
-            style={styles.icon}
-            fill={activeTab === 'Category' ? '#6A33F8' : 'gray'}
-          />
-          <Text style={[styles.navItem, activeTab === 'Category' && styles.activeNavItem]}>Home</Text>
-        </TouchableOpacity>
-  
-        <TouchableOpacity
-          onPress={() => handleNavigation('TaskCompleted')}
-          style={styles.navItemContainer}
-        >
-          <Icon
-            name="clipboard-outline"
-            style={styles.icon}
-            fill={activeTab === 'TaskCompleted' ? '#6A33F8' : 'gray'}
-          />
-          <Text style={[styles.navItem, activeTab === 'TaskCompleted' && styles.activeNavItem]}>Tasks</Text>
-        </TouchableOpacity>
-  
-        <TouchableOpacity
-          onPress={() => handleNavigation('Profile')}
-          style={styles.navItemContainer}
-        >
-          <Icon
-            name="person-outline"
-            style={styles.icon}
-            fill={activeTab === 'Profile' ? '#6A33F8' : 'gray'}
-          />
-          <Text style={[styles.navItem, activeTab === 'Profile' && styles.activeNavItem]}>Profile</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   const firstFourCategories = categories.slice(0, 4);
   const remainingCategories = categories.slice(4);
 
@@ -118,14 +63,6 @@ const Category = ({ navigation }) => {
                 style={styles.categoryLogo}
               />
               <View style={styles.iconContainer}>
-                {/* <Image
-                  source={require('../public/images/comment-icon.png')}
-                  style={styles.headericon}
-                />
-                <Image
-                  source={require('../public/images/notif-icon.png')}
-                  style={styles.headericon}
-                /> */}
                 <Icon
                   name='message-circle-outline'
                   style={styles.headericon}
@@ -197,9 +134,7 @@ const Category = ({ navigation }) => {
           </Layout>
         )}
       />
-      <BottomNavBar handleNavigation={handleNavigation} activeTab={activeTab} setActiveTab={setActiveTab} />
     </Layout>
-
   );
 };
 
@@ -267,10 +202,6 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
   },
-  icon: {
-    width: 24,
-    height: 24,
-  },
   categorysection: {
     paddingHorizontal: 15,
     backgroundColor: "#f8f9fb",
@@ -310,7 +241,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontWeight: 'bold',
     marginTop: 8,
-    // marginBottom: 4,
     backgroundColor: "#f8f9fb"
   },
   subtitle: {
@@ -358,25 +288,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#49ade1',
     fontWeight: "bold"
-  },
-  navBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 15,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#e4e9f2',
-  },
-  navItemContainer: {
-    alignItems: 'center',
-  },
-  navItem: {
-    fontSize: 16,
-    color: 'gray',
-  },
-  activeNavItem: {
-    color: '#6A33F8',
-  },
+  }
 });
 
 export default Category;

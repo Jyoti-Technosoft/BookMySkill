@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image, View } from 'react-native';
 import { Layout, Input, Button, Icon, Text } from '@ui-kitten/components';
 
 const Login = ({ navigation }) => {
@@ -69,6 +69,9 @@ const Login = ({ navigation }) => {
 
   return (
     <Layout style={styles.container}>
+      <View style={styles.flower}>
+        <Image source={require('../public/images/logo192.png')} style={styles.image} />
+      </View>
       <Text category="h1" style={styles.title}>
         Login
       </Text>
@@ -108,7 +111,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 16,
+  },
+  flower: {
+    width: 90,
+    height: 90,
+    marginBottom: 5,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   title: {
     textAlign: 'center',

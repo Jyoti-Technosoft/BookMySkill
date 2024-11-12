@@ -1,45 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
-import { Layout, Text, Divider, Icon } from '@ui-kitten/components';
+import { Layout, Text, Divider } from '@ui-kitten/components';
 
 const Profile = () => {
-    const [activeTab, setActiveTab] = useState('Profile');
-
-    const handleNavigation = (tab) => {
-        setActiveTab(tab);
-    };
-
-    const BottomNavBar = ({ navigation, activeTab }) => {
-        return (
-          <View style={styles.navBar}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.navItemContainer}>
-              <Icon
-                name='home-outline'
-                style={styles.icon}
-                fill={activeTab === 'Home' ? '#6A33F8' : 'gray'}
-              />
-              <Text style={[styles.navItem, activeTab === 'Home' && styles.activeNavItem]}>Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Tasks')} style={styles.navItemContainer}>
-              <Icon
-                name='clipboard-outline'
-                style={styles.icon}
-                fill={activeTab === 'Tasks' ? '#6A33F8' : 'gray'}
-              />
-              <Text style={[styles.navItem, activeTab === 'Tasks' && styles.activeNavItem]}>Tasks</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.navItemContainer}>
-              <Icon
-                name='person-outline'
-                style={styles.icon}
-                fill={activeTab === 'Profile' ? '#6A33F8' : 'gray'}
-              />
-              <Text style={[styles.navItem, activeTab === 'Profile' && styles.activeNavItem]}>Profile</Text>
-            </TouchableOpacity>
-          </View>
-        );
-      };
-
     return (
         <Layout style={styles.mainContainer}>
             <View style={styles.profileContainer}>
@@ -113,7 +76,6 @@ const Profile = () => {
                     </View>
                 </View>
             </Layout>
-            <BottomNavBar navigation={{ navigate: handleNavigation }} activeTab={activeTab} />
         </Layout>
     );
 };
@@ -212,29 +174,6 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         fontWeight: 'bold',
-    },
-    navBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingVertical: 15,
-        backgroundColor: '#fff',
-        borderTopWidth: 1,
-        borderTopColor: '#e4e9f2',
-    },
-    navItemContainer: {
-        alignItems: 'center',
-    },
-    icon: {
-        width: 24,
-        height: 24,
-        marginBottom: 4,
-    },
-    navItem: {
-        fontSize: 14,
-        color: 'gray',
-    },
-    activeNavItem: {
-        color: '#6A33F8',
     },
 });
 
