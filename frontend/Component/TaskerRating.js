@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Image, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { Layout, Text, Button, Input, Modal, Card, Icon } from '@ui-kitten/components';
 
-const TaskerRating = () => {
+const TaskerRating = ({ navigation }) => {
     const [comment, setComment] = useState('');
     const [visible, setVisible] = useState(false);
 
@@ -11,6 +11,7 @@ const TaskerRating = () => {
     };
     const closeModal = () => {
         setVisible(false);
+        navigation.replace('Profile');
     };
 
     return (

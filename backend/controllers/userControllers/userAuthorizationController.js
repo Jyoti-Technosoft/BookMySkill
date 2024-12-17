@@ -18,9 +18,9 @@ const userSignUp = async (req, res) => {
             const newSignUp = new SignUpModel({
                 firstName: firstName,
                 email: email,
-                phoneNumber: phoneNumber,
+                // phoneNumber: phoneNumber,
                 password: hashedPassword,
-                status: "Active",
+                // status: "Active",
             });
             const newRegistration = await newSignUp.save();
             res.status(200).json({ status: 200, message: "Registeration successful." });

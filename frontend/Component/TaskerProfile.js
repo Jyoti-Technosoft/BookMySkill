@@ -23,7 +23,7 @@ import db from "../db.json";
 
 const reviews = db?.TaskerProfile?.reviews || [];
 
-const TaskerProfile = () => {
+const TaskerProfile = ({ navigation }) => {
   const [scheduleVisible, setScheduleVisible] = useState(false);
   const [date, setDate] = useState(new Date());
   const [time1, setTime1] = useState(new Date());
@@ -47,12 +47,12 @@ const TaskerProfile = () => {
     );
   };
 
-  const BottomBar = () => {
+  const BottomBar = ({ navigation }) => {
     return (
       <View style={styles.bottomBar}>
         <Button
           style={styles.confirmButton}
-          onPress={() => alert("Confirmed!")}
+          onPress={() => navigation.navigate('ReviewConfirm')}
           title="Continue"
         >
           Continue
@@ -268,7 +268,7 @@ const TaskerProfile = () => {
                     style={styles.timePicker}
                     onPress={() => setShowTimePicker1(true)}
                   >
-                  <View style={styles.iconTextContainer}>
+                    <View style={styles.iconTextContainer}>
                       <Text style={styles.text}>09:00 AM</Text>
                       <Icon
                         name="clock-outline"
@@ -291,30 +291,30 @@ const TaskerProfile = () => {
                         style={styles.clockIcon}
                       />
                     </View>
-              </TouchableOpacity>
+                  </TouchableOpacity>
 
-              {showTimePicker1 && (
-                <DateTimePicker
-                  value={time1}
-                  mode="time"
-                  display="default"
-                  onChange={onChangeTime1}
-                />
-              )}
-              {showTimePicker2 && (
-                <DateTimePicker
-                  value={time2}
-                  mode="time"
-                  display="default"
-                  onChange={onChangeTime2}
-                />
-              )}
+                  {showTimePicker1 && (
+                    <DateTimePicker
+                      value={time1}
+                      mode="time"
+                      display="default"
+                      onChange={onChangeTime1}
+                    />
+                  )}
+                  {showTimePicker2 && (
+                    <DateTimePicker
+                      value={time2}
+                      mode="time"
+                      display="default"
+                      onChange={onChangeTime2}
+                    />
+                  )}
+                </View>
+              </ScrollView>
+              <BottomBar navigation={navigation} />
             </View>
-          </ScrollView>
-          <BottomBar />
-        </View>
-      </View>
-    </Modal>
+          </View>
+        </Modal>
       </ScrollView >
     </Layout >
   );

@@ -4,13 +4,13 @@ import { Layout, Card, Button, Input, Icon } from '@ui-kitten/components';
 
 import db from "../db.json";
 
-const ReviewConfirm = () => {
+const ReviewConfirm = ({ navigation }) => {
     const waitinlines = db?.reviewconfirm?.waitinline || [];
 
-    const BottomBar = () => {
+    const BottomBar = ({ navigation }) => {
         return (
             <View style={styles.bottomBar}>
-                <Button style={styles.confirmButton} onPress={() => alert('Confirmed!')}>
+                <Button style={styles.confirmButton} onPress={() => navigation.navigate('PaymentPage')}>
                     Confirm
                 </Button>
             </View>
@@ -134,7 +134,7 @@ const ReviewConfirm = () => {
                     </View>
                 </Card>
             </Layout>
-            <BottomBar />
+            <BottomBar navigation={navigation}/>
         </>
     );
 };

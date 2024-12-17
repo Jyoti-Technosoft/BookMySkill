@@ -14,7 +14,7 @@ app.use(cors());
 app.use("/user", userRoutes);
 
 // "mongodb+srv://parthjtdev:aZhEeVs2ypG37LFH@cluster0.8kv0o0e.mongodb.net/demoreactnative"
-mongoose.connect(process.env.MONGODB_URL)
+mongoose.connect('mongodb+srv://parthjtdev:aZhEeVs2ypG37LFH@cluster0.8kv0o0e.mongodb.net/demoreactnative')
     .then(() => {
         console.log("Connected to the database");
         app.listen(5000, () => {

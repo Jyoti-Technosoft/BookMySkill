@@ -12,7 +12,7 @@ const registartionSchema = new mongoose.Schema({
 	},
 	phoneNumber: {
 		type: String,
-		required: true,
+		// required: true,
 	},
 	password: {
 		type: String,
