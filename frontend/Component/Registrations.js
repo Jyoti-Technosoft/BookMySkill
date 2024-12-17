@@ -15,6 +15,7 @@ import {
   Button,
   Select,
   SelectItem,
+  Icon
 } from '@ui-kitten/components';
 
 import db from "../db.json";
@@ -37,12 +38,14 @@ const Registration = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showUserDetailsForm, setShowUserDetailsForm] = useState(false);
+  const [phoneError, setPhoneError] = useState('');
+  const [firstNameError, setFirstNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+
   const countries = db?.Registrations?.countries || [];
-  // const countries = [
-  //   { code: 'US', name: 'United States', flag: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwwxhCMpFSg4qToHq_HKLhhU6bo5f1JJPh8w&s' },
-  //   { code: 'IN', name: 'India', flag: 'https://uxwing.com/wp-content/themes/uxwing/download/flags-landmarks/india-flag-icon.png' },
-  //   { code: 'UK', name: 'United Kingdom', flag: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN6NjUzMsxiPYELyWrKg17MA4eLo47fkkM2w&s' },
-  // ];
+
   const renderCountryOption = (country) => (
     <SelectItem
       key={country.code}
@@ -56,38 +59,89 @@ const Registration = ({ navigation }) => {
   const selectedCountryData = countries.find(
     (country) => country.code === selectedCountry
   );
+
+  const toggleSecureEntry = () => {
+    setSecureTextEntry(!secureTextEntry);
+  };
+
+  const renderEyeIcon = (props) => (
+    <TouchableOpacity onPress={toggleSecureEntry}>
+      <Icon
+        {...props}
+        name={secureTextEntry ? 'eye-off' : 'eye'}
+        style={styles.icon}
+        fill="#8F9BB3"
+      />
+    </TouchableOpacity>
+  );
   const handleContinue = () => {
+    setPhoneError('');
     const phoneRegex = /^[0-9]{10}$/;
     if (!phoneRegex.test(phoneNumber)) {
-      Alert.alert('Invalid Phone Number', 'Please enter a valid 10-digit phone number.');
+      setPhoneError('Please enter a valid 10-digit phone number.');
       return;
     }
     setShowUserDetailsForm(true);
   };
+  
   const handleSubmit = async () => {
-    navigation.replace('Login');
+    setFirstNameError('');
+    setEmailError('');
+    setPasswordError('');
+  
+    if (!firstName) {
+      setFirstNameError('First Name is required.');
+      return;
+    }
+  
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!email || !emailRegex.test(email)) {
+      setEmailError('Please enter a valid email address.');
+      return;
+    }
+  
+    if (!password) {
+      setPasswordError('Password is required.');
+      return;
+    }
+  
+    if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters.');
+      return;
+    }
+  
     try {
-      const response = await fetch('http://localhost:5000/user/signUp', {
+      const response = await fetch('http://10.0.2.2:5000/user/signUp', {
         method: 'POST',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           firstName,
           email,
-          phoneNumber,
           password,
         }),
       });
+  
       if (!response.ok) {
-        throw new Error('Failed to sign up');
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+  
       const data = await response.json();
-      // Alert.alert('Success', 'You have successfully signed up!');
+  
+      if (response.ok) {
+        Alert.alert('Success', 'Signed up successfully! Please log in.');
+        navigation.replace('Login');
+      } else {
+        throw new Error('Unexpected response from the server.');
+      }
     } catch (error) {
-      // Alert.alert('Error', error.message);
+      console.error('Request failed', error);
+      Alert.alert('Error', error.message || 'An error occurred. Please try again.');
     }
   };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollView}>
@@ -139,6 +193,8 @@ const Registration = ({ navigation }) => {
                   keyboardType="numeric"
                   value={phoneNumber}
                   onChangeText={setPhoneNumber}
+                  status={phoneError ? 'danger' : 'basic'}
+                  caption={phoneError}
                 />
               </Layout>
               <Button style={styles.continueButton} onPress={handleContinue}>
@@ -173,28 +229,38 @@ const Registration = ({ navigation }) => {
             </>
           ) : (
             <>
-              <Text category="s1" style={styles.subHeaderText}>
+              {/* <Text category="s1" style={styles.subHeaderText}>
                 Enter your details:
-              </Text>
+              </Text> */}
               <Input
+                label="First Name"
                 placeholder="First Name"
                 value={firstName}
                 onChangeText={setFirstName}
                 style={{ marginBottom: 20 }}
+                status={firstNameError ? 'danger' : 'basic'}
+                caption={firstNameError}
               />
               <Input
+                label="Email"
                 placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 style={{ marginBottom: 20 }}
+                status={emailError ? 'danger' : 'basic'}
+                caption={emailError}
               />
               <Input
+                label="Password"
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
-                secureTextEntry
+                secureTextEntry={secureTextEntry} 
                 style={{ marginBottom: 20 }}
+                status={passwordError ? 'danger' : 'basic'}
+                caption={passwordError}
+                accessoryRight={renderEyeIcon}
               />
               <Button style={styles.submitButton} onPress={handleSubmit}>
                 Submit
@@ -202,8 +268,12 @@ const Registration = ({ navigation }) => {
             </>
           )}
           <View style={styles.footer}>
-            <Text style={{ fontSize: 18, fontWeight: 'normal' }}>Already had an account?   <Text style={styles.footerUnderlineText}>Log in</Text></Text>
-            {/* <Button appearance="ghost"></Button> */}
+            <Text style={{ fontSize: 18, fontWeight: 'normal' }}>
+              Already have an account?
+              <TouchableOpacity onPress={() => navigation.replace('Login')}>
+                <Text style={styles.footerUnderlineText}>Log in</Text>
+              </TouchableOpacity>
+            </Text>
           </View>
         </Layout>
       </ScrollView>
@@ -273,7 +343,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   buttonText: {
-    fontWeight: 600, 
+    fontWeight: 600,
   },
   buttonContent: {
     flexDirection: 'row',
@@ -308,7 +378,8 @@ const styles = StyleSheet.create({
     color: '#3598E7',
     textDecorationLine: 'underline',
     fontSize: 18,
-    fontWeight: 'normal'
+    marginLeft: 10,
+    marginVertical: -5,
   }
 });
 export default Registration;

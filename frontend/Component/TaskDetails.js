@@ -4,27 +4,24 @@ import { Layout, Card, Icon, Tab, TabView } from '@ui-kitten/components';
 
 import db from "../db.json";
 
-const TaskDetails = () => {
+const TaskDetails = ({ navigation }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const waitinlines = db?.reviewconfirm?.waitinline || [];
     const [message, setMessage] = useState('');
+
+    const waitinlines = db?.reviewconfirm?.waitinline || [];
     const messages = db?.TaskDetails?.messages
 
-    const BottomBar = () => {
+    const BottomBar = ({ navigation }) => {
         return (
             <View style={styles.bottomBar}>
                 <TouchableOpacity
                     style={styles.newTaskerButton}
-                    // appearance="outline"
-                    // status="primary"
-                    onPress={() => alert('Find a New Tasker')}
+                    onPress={() => navigation.navigate('TaskerList')}
                 >
                     <Text style={styles.newTaskerText}>Find a New Tasker</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.cancelTaskButton}
-                    // appearance="outline"
-                    // status="danger"
                     onPress={() => alert('Cancel Task')}
                 >
                     <Text style={styles.cancelTaskText}>Cancel Task</Text>
@@ -32,6 +29,7 @@ const TaskDetails = () => {
             </View>
         );
     };
+
     const TopBar = () => {
         return (
             <View style={styles.topBar}>
@@ -59,7 +57,6 @@ const TaskDetails = () => {
                 return null;
         }
     };
-
     return (
         <>
             <TopBar />
@@ -67,13 +64,17 @@ const TaskDetails = () => {
                 selectedIndex={selectedIndex}
                 onSelect={index => setSelectedIndex(index)}
                 style={styles.tabView}
+                indicatorStyle={{ backgroundColor: '#6A33F8', borderBottomWidth: 0 }}
             >
                 <Tab
-                    title="Task Info"
-                    style={[
-                        styles.tabStyle,
-                        selectedIndex === 0 ? styles.activeTab : null,
-                    ]}
+                    title={() => (
+                        <Text style={[
+                            styles.tabStyle,
+                            selectedIndex === 0 && styles.activeTab,
+                        ]}>
+                            Task Info
+                        </Text>
+                    )}
                 >
                     <Layout style={styles.container}>
                         {waitinlines?.map((item, index) => (
@@ -138,16 +139,18 @@ const TaskDetails = () => {
                                 <Text style={styles.totalValue} category="h5">$48.00/hr</Text>
                             </View>
                         </Card>
-                        <BottomBar />
+                        <BottomBar navigation={navigation} />
                     </Layout>
                 </Tab>
-
                 <Tab
-                    title="Chat"
-                    style={[
-                        styles.tabStyle,
-                        selectedIndex === 1 ? styles.activeTab : null,
-                    ]}
+                    title={() => (
+                        <Text style={[
+                            styles.tabStyle,
+                            selectedIndex === 1 && styles.activeTab,
+                        ]}>
+                            Chat
+                        </Text>
+                    )}
                 >
                     <Layout style={{ backgroundColor: '#F7F9FC' }}>
                         <ScrollView style={styles.chatContainer}>
@@ -222,10 +225,15 @@ const styles = StyleSheet.create({
     },
     tabView: {
         backgroundColor: '#fff',
-        height: '100%'
+        height: '100%',
+    },
+    tabStyle: {
+        fontWeight: "bold",
+        color: 'gray',
+        paddingBottom: 4
     },
     activeTab: {
-        color: '#6d30ed',
+        color: '#6A33F8',
     },
     card: {
         marginVertical: 6,

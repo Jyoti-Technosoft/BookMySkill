@@ -1,57 +1,74 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Text, Card, Button, Divider, Icon, Tab, TabView } from '@ui-kitten/components';
+import { Layout, Text, Card, Divider, Icon, Tab, TabView } from '@ui-kitten/components';
 import { View, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 import db from "../db.json";
 
-const TaskCompleted = () => {
-    const [activeTab, setActiveTab] = useState('Tasks');
+const TaskCompleted = ({ navigation }) => {
     const [selectedIndex, setSelectedIndex] = useState(1);
-
-    useEffect(() => {
-        setSelectedIndex(1);
-    }, []);
 
     const tasks = db?.TaskCompleted?.tasks || [];
 
-    const handleNavigation = (tab) => {
-        setActiveTab(tab);
-    };
+    const renderTabContent = () => {
+        return (
+            <ScrollView contentContainerStyle={styles.content}>
+                {tasks.map((task, index) => (
+                    <Card key={index} style={styles.card}>
+                        <Text category="h6" style={styles.title}>{task.title}</Text>
+                        <View style={styles.header}>
+                            <Image source={{ uri: task.imageUrl }} style={styles.avatar} />
+                            <View style={styles.headerText}>
+                                <Text style={styles.name}>{task.name}</Text>
+                                <Image
+                                    source={require("../public/images/star-rating-4.5.png")}
+                                    style={styles.ratingImage}
+                                />
+                            </View>
+                            {/* <Button appearance="ghost"
+                                //   accessoryLeft={MessageIcon} 
+                                style={styles.chatButton} /> */}
+                            <Image
+                                source={require("../public/images/chat-icon.png")}
+                                style={styles.chatImage}
+                            />
+                        </View>
+                        <Divider style={styles.divider} />
+                        <View style={styles.info}>
+                            <View style={styles.row}>
+                                <Icon
+                                    name="calendar"
+                                    style={styles.calenderImage}
+                                    fill="#bdbfca"
+                                />
+                                <Text>{task.date}</Text>
+                            </View>
+                            <View style={styles.row}>
+                                <Icon
+                                    name="clock-outline"
+                                    style={styles.clockImage}
+                                    fill="#bdbfca"
+                                />
+                                <Text>{task.time}</Text>
+                            </View>
+                        </View>
+                        {/* <Button style={styles.button}>{task.buttonText}</Button> */}
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('TaskerRating')}
+                            style={task.buttonText === 'Rate' ? styles.rateButton : styles.bookAgainButton}
+                        >
+                            <Text style={task.buttonText === 'Rate' ? styles.buttonTextRate : styles.buttonTextBookAgain}>
+                                {task.buttonText}
+                            </Text>
+                        </TouchableOpacity>
+                    </Card>
+                ))}
+            </ScrollView>
+        )
+    }
 
     useEffect(() => {
         setSelectedIndex(1);
     }, []);
-
-    const BottomNavBar = ({ navigation, activeTab }) => {
-        return (
-            <View style={styles.navBar}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.navItemContainer}>
-                    <Icon
-                        name='home-outline'
-                        style={styles.icon}
-                        fill={activeTab === 'Home' ? '#6A33F8' : 'gray'}
-                    />
-                    <Text style={[styles.navItem, activeTab === 'Home' && styles.activeNavItem]}>Home</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Tasks')} style={styles.navItemContainer}>
-                    <Icon
-                        name='clipboard-outline'
-                        style={styles.icon}
-                        fill={activeTab === 'Tasks' ? '#6A33F8' : 'gray'}
-                    />
-                    <Text style={[styles.navItem, activeTab === 'Tasks' && styles.activeNavItem]}>Tasks</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.navItemContainer}>
-                    <Icon
-                        name='person-outline'
-                        style={styles.icon}
-                        fill={activeTab === 'Profile' ? '#6A33F8' : 'gray'}
-                    />
-                    <Text style={[styles.navItem, activeTab === 'Profile' && styles.activeNavItem]}>Profile</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    };
 
     return (
         <Layout style={styles.container}>
@@ -59,65 +76,32 @@ const TaskCompleted = () => {
                 selectedIndex={selectedIndex}
                 onSelect={index => setSelectedIndex(index)}
                 style={styles.tabView}
+                indicatorStyle={{ backgroundColor: '#6A33F8', borderBottomWidth: 0 }}
             >
-                <Tab title="Scheduled" style={styles.selectedTab}>
-                    <Text>Releasing Soon!</Text>
+                <Tab
+                    title={() => (
+                        <Text style={[
+                            styles.tabStyle,
+                            selectedIndex === 0 && styles.activeTab,
+                        ]}
+                        >
+                            Scheduled
+                        </Text>
+                    )} >
+                    {renderTabContent()}
                 </Tab>
-                <Tab title="Completed" style={styles.selectedTab}>
-                    <ScrollView contentContainerStyle={styles.content}>
-                        {tasks.map((task, index) => (
-                            <Card key={index} style={styles.card}>
-                                <Text category="h6" style={styles.title}>{task.title}</Text>
-                                <View style={styles.header}>
-                                    <Image source={{ uri: task.imageUrl }} style={styles.avatar} />
-                                    <View style={styles.headerText}>
-                                        <Text style={styles.name}>{task.name}</Text>
-                                        <Image
-                                            source={require("../public/images/star-rating-4.5.png")}
-                                            style={styles.ratingImage}
-                                        />
-                                    </View>
-                                    {/* <Button appearance="ghost"
-                                //   accessoryLeft={MessageIcon} 
-                                style={styles.chatButton} /> */}
-                                    <Image
-                                        source={require("../public/images/chat-icon.png")}
-                                        style={styles.chatImage}
-                                    />
-                                </View>
-                                <Divider style={styles.divider} />
-                                <View style={styles.info}>
-                                    <View style={styles.row}>
-                                        <Icon
-                                            name="calendar"
-                                            style={styles.calenderImage}
-                                            fill="#bdbfca"
-                                        />
-                                        <Text>{task.date}</Text>
-                                    </View>
-                                    <View style={styles.row}>
-                                        <Icon
-                                            name="clock-outline"
-                                            style={styles.clockImage}
-                                            fill="#bdbfca"
-                                        />
-                                        <Text>{task.time}</Text>
-                                    </View>
-                                </View>
-                                {/* <Button style={styles.button}>{task.buttonText}</Button> */}
-                                <TouchableOpacity
-                                    style={task.buttonText === 'Rate' ? styles.rateButton : styles.bookAgainButton}
-                                >
-                                    <Text style={task.buttonText === 'Rate' ? styles.buttonTextRate : styles.buttonTextBookAgain}>
-                                        {task.buttonText}
-                                    </Text>
-                                </TouchableOpacity>
-                            </Card>
-                        ))}
-                    </ScrollView>
+                <Tab title={() => (
+                    <Text style={[
+                        styles.tabStyle,
+                        selectedIndex === 1 && styles.activeTab,
+                    ]}>
+                        Completed
+                    </Text>
+                )}>
+                    {renderTabContent()}
                 </Tab>
             </TabView>
-            <BottomNavBar navigation={{ navigate: handleNavigation }} activeTab={activeTab} />
+            {/* <BottomNavBar navigation={navigation}  activeTab={activeTab} setActiveTab={setActiveTab} /> */}
         </Layout>
     );
 };
@@ -129,6 +113,9 @@ const styles = StyleSheet.create({
     },
     tabView: {
         flex: 1,
+    },
+    activeTab: {
+        color: '#6A33F8',
     },
     content: {
         paddingBottom: 20,
@@ -169,28 +156,6 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 10,
         borderRadius: 24,
-    },
-    navBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingVertical: 15,
-        backgroundColor: '#fff',
-        borderTopWidth: 1,
-        borderTopColor: '#e4e9f2',
-    },
-    navItemContainer: {
-        alignItems: 'center',
-    },
-    icon: {
-        width: 24,
-        height: 24,
-    },
-    navItem: {
-        fontSize: 14,
-        color: 'gray',
-    },
-    activeNavItem: {
-        color: '#6A33F8',
     },
     ratingImage: {
         width: 100,
@@ -238,9 +203,11 @@ const styles = StyleSheet.create({
         color: '#6d30ed',
         textAlign: 'center',
     },
-    selectedTab: {
+    tabStyle: {
         marginTop: 20,
-        marginBottom: 10,
+        marginBottom: 8,
+        fontWeight: "bold",
+        color: 'gray',
     },
 });
 
