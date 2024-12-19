@@ -15,12 +15,16 @@ const SearchVenues = ({ navigation }) => {
     const [adults, setAdults] = useState(0);
     const [children, setChildren] = useState(0);
     const [activeTab, setActiveTab] = useState('Choose dates');
+    const [selectedLocation, setSelectedLocation] = useState("Anywhere");
+    const [selectedDate, setSelectedDate] = useState("Choose Date");
+    const [selectedAdults, setSelectedAdults] = useState(0);
+    const [selectedChildren, setSelectedChildren] = useState(0);
 
-    const handlePlaceSelection = (url) => {
-        // console.log("Selected Place URL:", url);
+
+    const handlePlaceSelection = (title) => {
+        setSelectedLocation(title);
         setShowLocation(true);
     };
-
     const getImageSource = (imageName) => {
         switch (imageName) {
             case "../public/images/searchvenues-img1.png":
@@ -41,8 +45,8 @@ const SearchVenues = ({ navigation }) => {
                     <Text style={styles.clearAllButtonText}>Clear all</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.searchButton}
-                 onPress={() => navigation.navigate('TaskerList')}>
-                {/* onPress={() => navigation.navigate('TaskerProfile')}> */}
+                    onPress={() => navigation.navigate('TaskerList')}>
+                    {/* onPress={() => navigation.navigate('TaskerProfile')}> */}
                     <Icon
                         name='search-outline'
                         style={styles.searchIconBottombar}
@@ -83,16 +87,24 @@ const SearchVenues = ({ navigation }) => {
         }
     };
 
-    const incrementCounter = (setter, value) => {
+    const incrementCounter = (setter, value, selectedSetter, selectedValue) => {
         setter(value + 1);
-      };
-    
-      const decrementCounter = (setter, value) => {
-        if (value > 0) {
-          setter(value - 1);
-        }
-      };
+        selectedSetter(selectedValue + 1);
+    };
 
+    const decrementCounter = (setter, value, selectedSetter, selectedValue) => {
+        if (value > 0) {
+            setter(value - 1);
+            selectedSetter(selectedValue - 1);
+        }
+    };
+
+    const formatDate = (date) => {
+        const day = date.getDate();
+        const month = date.toLocaleString('default', { month: 'long' });
+
+        return `${day}, ${month}`;
+    };
 
     return (
         <TouchableWithoutFeedback onPress={closeSearch}>
@@ -115,7 +127,7 @@ const SearchVenues = ({ navigation }) => {
                                     style={styles.addLocationButton}
                                     onPress={() => setShowLocation(false)}
                                 >
-                                    <Text style={styles.cardButtonText}>Anywhere</Text>
+                                    <Text style={styles.cardButtonText}>{selectedLocation || "Anywhere"}</Text>
                                 </TouchableOpacity>
                             </View>
                         ) : (
@@ -135,7 +147,7 @@ const SearchVenues = ({ navigation }) => {
                                 </View>
                                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.imageScrollView}>
                                     {searchPlaces?.map((item, index) => (
-                                        <TouchableOpacity key={index} onPress={() => handlePlaceSelection(item?.url)}>
+                                        <TouchableOpacity key={index} onPress={() => handlePlaceSelection(item?.title)}>
                                             <View style={styles.placeContainer}>
                                                 <Image style={styles.placeImage} source={getImageSource(item?.url)} />
                                                 <Text style={
@@ -156,7 +168,7 @@ const SearchVenues = ({ navigation }) => {
                                     style={styles.addTimeButton}
                                     onPress={() => setShowWhen(false)}
                                 >
-                                    <Text style={styles.cardButtonText}>Choose Date</Text>
+                                    <Text style={styles.cardButtonText}>{selectedDate}</Text>
                                 </TouchableOpacity>
                             </View>
                         ) : (
@@ -197,7 +209,11 @@ const SearchVenues = ({ navigation }) => {
                                 <View>
                                     <Calendar
                                         date={date}
-                                        onSelect={(nextDate) => setDate(nextDate)}
+                                        onSelect={(nextDate) => {
+                                            setDate(nextDate);  // Update date state
+                                            const formattedDate = formatDate(nextDate);  // Format the selected date
+                                            setSelectedDate(formattedDate);  // Update state with formatted date
+                                        }}
                                         style={styles.calendar}
                                         renderHeader={renderHeader}
                                     />
@@ -232,9 +248,11 @@ const SearchVenues = ({ navigation }) => {
                                 <Text style={styles.cardText}>People</Text>
                                 <TouchableOpacity
                                     style={styles.addPeopleButton}
-                                    onPress={() => setShowPeople(false) }
+                                    onPress={() => setShowPeople(false)}  // Show the counters when pressed
                                 >
-                                    <Text style={styles.cardButtonText}>Add People</Text>
+                                    <Text style={styles.cardButtonText}>
+                                        {`Adults: ${selectedAdults}  Children: ${selectedChildren}`}
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
                         ) : (
@@ -247,33 +265,20 @@ const SearchVenues = ({ navigation }) => {
                                         Adults
                                     </Text>
                                     <View style={styles.counter}>
-                                        {/* <Image
-                                  style={styles.counterButton}
-                                  source={{
-                                    uri: "https://static-00.iconduck.com/assets.00/minus-circle-icon-1024x1024-8ry1v1pb.png",
-                                  }}
-                                  onPress={() => decrement(setAdults, adults)}
-                                /> */}
+                                        {/* Decrement button for Adults */}
                                         <TouchableOpacity
                                             style={styles.counterButton}
-                                            onPress={() => decrementCounter(setAdults, adults)}
+                                            onPress={() => decrementCounter(setAdults, adults, setSelectedAdults, selectedAdults)}
                                         >
-                                            <Icon
-                                                name="minus"
-                                                style={styles.counterIcon}
-                                                fill="#222B45"
-                                            />
+                                            <Icon name="minus" style={styles.counterIcon} fill="#222B45" />
                                         </TouchableOpacity>
-                                        <Text style={styles.countText}>{adults}</Text>
+                                        <Text style={styles.countText}>{selectedAdults}</Text>
+                                        {/* Increment button for Adults */}
                                         <TouchableOpacity
                                             style={styles.counterButton}
-                                            onPress={() => incrementCounter(setAdults, adults)}
+                                            onPress={() => incrementCounter(setAdults, adults, setSelectedAdults, selectedAdults)}
                                         >
-                                            <Icon
-                                                name="plus"
-                                                style={styles.counterIcon}
-                                                fill="#222B45"
-                                            />
+                                            <Icon name="plus" style={styles.counterIcon} fill="#222B45" />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
@@ -283,34 +288,29 @@ const SearchVenues = ({ navigation }) => {
                                         Children
                                     </Text>
                                     <View style={styles.counter}>
+                                        {/* Decrement button for Children */}
                                         <TouchableOpacity
                                             style={styles.counterButton}
-                                            onPress={() => decrementCounter(setChildren, children)}
+                                            onPress={() => decrementCounter(setChildren, children, setSelectedChildren, selectedChildren)}
                                         >
-                                            <Icon
-                                                name="minus"
-                                                style={styles.counterIcon}
-                                                fill="#222B45"
-                                            />
+                                            <Icon name="minus" style={styles.counterIcon} fill="#222B45" />
                                         </TouchableOpacity>
-                                        <Text style={styles.countText}>{children}</Text>
+                                        <Text style={styles.countText}>{selectedChildren}</Text>
+                                        {/* Increment button for Children */}
                                         <TouchableOpacity
                                             style={styles.counterButton}
-                                            onPress={() => incrementCounter(setChildren, children)}
+                                            onPress={() => incrementCounter(setChildren, children, setSelectedChildren, selectedChildren)}
                                         >
-                                            <Icon
-                                                name="plus"
-                                                style={styles.counterIcon}
-                                                fill="#222B45"
-                                            />
+                                            <Icon name="plus" style={styles.counterIcon} fill="#222B45" />
                                         </TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
                         )}
                     </View>
+
                 </ScrollView>
-                <BottomBar navigation={navigation}/>
+                <BottomBar navigation={navigation} />
             </View>
         </TouchableWithoutFeedback>
     );
@@ -469,25 +469,25 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginBottom: 10,
         marginTop: 10,
-      },
-      counterLabel: {
+    },
+    counterLabel: {
         fontSize: 16,
         color: "#222B45",
         paddingLeft: 15,
         paddingRight: 15,
-      },
-      counter: {
+    },
+    counter: {
         flexDirection: "row",
         alignItems: "center",
         paddingLeft: 15,
         paddingRight: 15,
-      },
-      countText: {
+    },
+    countText: {
         marginHorizontal: 10,
         fontSize: 16,
         color: "#222B45",
-      },
-      counterButton: {
+    },
+    counterButton: {
         borderRadius: 30,
         width: 32,
         height: 32,
@@ -496,11 +496,11 @@ const styles = StyleSheet.create({
         borderColor: "#adb1b7",
         borderWidth: 1,
         marginHorizontal: 5,
-      },
-      counterIcon: {
+    },
+    counterIcon: {
         width: 20,
         height: 20,
-      },
+    },
     headercloseicon: {
         display: "flex",
         justifyContent: 'flex-end',

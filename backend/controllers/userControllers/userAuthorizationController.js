@@ -18,7 +18,7 @@ const userSignUp = async (req, res) => {
             const newSignUp = new SignUpModel({
                 firstName: firstName,
                 email: email,
-                // phoneNumber: phoneNumber,
+                phoneNumber: phoneNumber,
                 password: hashedPassword,
                 // status: "Active",
             });
@@ -41,32 +41,32 @@ const userLogin = async (req, res) => {
         if (checkUser.status !== "Active") {
             return res.status(401).json({ message: "Contact Higher authority." });
         }
-        // Compare  password with the hashed password
-        const passwordMatch = await bcrypt.compare(
-            password,
-            checkUser.password
-        );
+        const passwordMatch = await bcrypt.compare(password, checkUser.password);
         const secretKey = "77885566";
+
         if (passwordMatch) {
             const token = jwt.sign({ userId: checkUser._id }, secretKey, {
                 expiresIn: "12h",
             });
             checkUser.token = token;
             await checkUser.save();
+
             return res.status(200).json({
                 message: "Login successful.",
+                userId: checkUser._id,
+                token: token,
                 User: checkUser,
             });
         } else {
-            return res
-                .status(401)
-                .json({ message: "Invalid Credentials. Please try again." });
+            return res.status(401).json({
+                message: "Invalid Credentials. Please try again.",
+            });
         }
     } catch (error) {
         console.error("Error during login:", error);
-        res
-            .status(500)
-            .json({ message: "No response from server. Please try again." });
+        res.status(500).json({
+            message: "No response from server. Please try again.",
+        });
     }
 }
 
@@ -98,8 +98,36 @@ const userLogout = async (req, res) => {
     }
 };
 
+// const getUserProfile = async (req, res) => {
+//     const userId = req.headers.authorization?.split(' ')[1]; // Extract userId from the Bearer token in Authorization header
+
+//     if (!userId) {
+//         return res.status(400).json({ message: "User ID is required." });
+//     }
+
+//     try {
+//         const user = await SignUpModel.findById(userId);
+
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found." });
+//         }
+
+//         const { password, token, ...userData } = user.toObject();
+
+//         return res.status(200).json({
+//             message: "User profile fetched successfully.",
+//             user: userData
+//         });
+
+//     } catch (error) {
+//         console.error("Error fetching user profile:", error);
+//         return res.status(500).json({ message: "Internal server error." });
+//     }
+// };
+
 module.exports = {
     userSignUp,
     userLogin,
-    userLogout
+    userLogout,
+    // getUserProfile
 };

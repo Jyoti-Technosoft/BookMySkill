@@ -1,11 +1,26 @@
-import React from 'react';
-import { Layout, Text, Icon, Avatar, Card, Button } from '@ui-kitten/components';
+import React, { useState, useEffect } from 'react';
+import { Layout, Text, Icon, Avatar, Card, Input } from '@ui-kitten/components';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-
 import db from "../db.json";
 
 const TrainerList = ({ navigation }) => {
-  const trainers = db?.TrainerList?.trainers || [];
+  const [trainers, setTrainers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    setTrainers(db?.TrainerList?.trainers || []);
+  }, []);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const filteredTrainers = db?.TrainerList?.trainers.filter((trainer) =>
+        trainer.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setTrainers(filteredTrainers);
+    } else {
+      setTrainers(db?.TrainerList?.trainers || []);
+    }
+  }, [searchTerm]);
 
   const renderCard = (trainer, index) => (
     <Card key={index} style={styles.card}>
@@ -39,19 +54,22 @@ const TrainerList = ({ navigation }) => {
           paddingHorizontal: 16,
           paddingVertical: 16,
           marginBottom: 10,
-          backgroundColor: '#fff'
-        }}>
-        <View
-          style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          backgroundColor: '#fff',
+        }}
+      >
+        <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
           <Icon
             name="arrow-back"
             style={[styles.backandCloseIcon, { marginRight: 20 }]}
             onPress={() => navigation.goBack()}
           />
-          <Text category="h6" style={styles.headerTitle}>
-            Box Trainer
-          </Text>
         </View>
+        <Input
+          placeholder="Search trainers"
+          value={searchTerm}
+          onChangeText={(text) => setSearchTerm(text)}
+          style={styles.searchInput}
+        />
         <View>
           <Icon
             name="close"
@@ -61,9 +79,14 @@ const TrainerList = ({ navigation }) => {
         </View>
       </View>
       <ScrollView style={styles.scrollView}>
-        {renderCard(trainers[0])}
-        <Text category="h6" style={styles.sectionTitle}>Other</Text>
-        {trainers.slice(1).map((trainer, index) => renderCard(trainer, index))}
+        <Text category="h6" style={styles.sectionTitle}>
+          Trainers
+        </Text>
+        {trainers.length > 0 ? (
+          trainers.map((trainer, index) => renderCard(trainer, index))
+        ) : (
+          <Text>No trainers found</Text>
+        )}
       </ScrollView>
     </Layout>
   );
@@ -74,20 +97,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F7F9FC',
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
   backandCloseIcon: {
     width: 30,
     height: 30,
     marginBottom: 0,
   },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  searchInput: {
+    flex: 1,
+    marginHorizontal: 16,
+    backgroundColor: '#F7F9FC',
   },
   scrollView: {
     flex: 1,
@@ -109,10 +127,6 @@ const styles = StyleSheet.create({
   avatar: {
     marginRight: 10,
     backgroundColor: '#fff',
-  },
-  backandCloseImage: {
-    width: 17,
-    height: 17,
   },
 });
 
