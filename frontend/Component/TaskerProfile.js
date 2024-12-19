@@ -110,12 +110,12 @@ const TaskerProfile = ({ navigation }) => {
           </Text>
         </View>
 
-        <View>
+        {/* <View>
           <Icon
             name="share"
             style={styles.backandShareImage}
           />
-        </View>
+        </View> */}
       </View>
       <ScrollView>
         <View style={styles.profileContainer}>

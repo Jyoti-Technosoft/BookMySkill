@@ -84,11 +84,82 @@ const Registration = ({ navigation }) => {
     setShowUserDetailsForm(true);
   };
   
+  // const handleSubmit = async () => {
+  //   setFirstNameError('');
+  //   setEmailError('');
+  //   setPasswordError('');
+  
+  //   if (!firstName) {
+  //     setFirstNameError('First Name is required.');
+  //     return;
+  //   }
+  
+  //   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  //   if (!email || !emailRegex.test(email)) {
+  //     setEmailError('Please enter a valid email address.');
+  //     return;
+  //   }
+  
+  //   if (!password) {
+  //     setPasswordError('Password is required.');
+  //     return;
+  //   }
+  
+  //   if (password.length < 6) {
+  //     setPasswordError('Password must be at least 6 characters.');
+  //     return;
+  //   }
+  
+  //   try {
+  //     const response = await fetch('http://10.0.2.2:5000/user/signUp', {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         firstName,
+  //         email,
+  //         password,
+  //       }),
+  //     });
+  
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  
+  //     const data = await response.json();
+  
+  //     if (response.ok) {
+  //       Alert.alert('Success', 'Signed up successfully! Please log in.');
+  //       navigation.replace('Login');
+  //     } else {
+  //       throw new Error('Unexpected response from the server.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Request failed', error);
+  //     Alert.alert('Error', error.message || 'An error occurred. Please try again.');
+  //   }
+  // };
+
   const handleSubmit = async () => {
     setFirstNameError('');
     setEmailError('');
     setPasswordError('');
+    setPhoneError('');
+    
+    if (!phoneNumber) {
+      setPhoneError('Phone number is required.');
+      return;
+    }
   
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      setPhoneError('Please enter a valid 10-digit phone number.');
+      return;
+    }
+  
+    // Validate other fields
     if (!firstName) {
       setFirstNameError('First Name is required.');
       return;
@@ -121,6 +192,7 @@ const Registration = ({ navigation }) => {
           firstName,
           email,
           password,
+          phoneNumber,
         }),
       });
   
@@ -240,6 +312,15 @@ const Registration = ({ navigation }) => {
                 style={{ marginBottom: 20 }}
                 status={firstNameError ? 'danger' : 'basic'}
                 caption={firstNameError}
+              />
+              <Input
+                label="Phone Number"
+                placeholder="Phone Number"
+                value={phoneNumber}
+                onChangeText={setPhoneNumber}
+                style={{ marginBottom: 20 }}
+                status={passwordError ? 'danger' : 'basic'}
+                caption={passwordError}
               />
               <Input
                 label="Email"

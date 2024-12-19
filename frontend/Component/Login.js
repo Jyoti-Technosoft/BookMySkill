@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Image, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image, View, Alert } from 'react-native';
 import { Layout, Input, Button, Icon, Text } from '@ui-kitten/components';
+// import AsyncStorage from '@react-native-async-storage/async-storage'; // Make sure AsyncStorage is installed
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -10,7 +11,6 @@ const Login = ({ navigation }) => {
   const [passwordError, setPasswordError] = useState('');
 
   const handleLogin = async () => {
-    // navigation.replace('ProfileSetting');
     setEmailError('');
     setPasswordError('');
 
@@ -32,6 +32,7 @@ const Login = ({ navigation }) => {
       setPasswordError('Password must be at least 6 characters long');
       return;
     }
+
     try {
       const response = await fetch('http://10.0.2.2:5000/user/login', {
         method: 'POST',
@@ -42,7 +43,12 @@ const Login = ({ navigation }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        navigation.replace('ProfileSetting');
+        const { userId, token } = data;
+
+        // await AsyncStorage.setItem('userId', userId.toString());
+        // await AsyncStorage.setItem('authToken', token);
+
+        navigation.replace('Category');
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Invalid username or password');

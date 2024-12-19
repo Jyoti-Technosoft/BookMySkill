@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Input, Button, Avatar, Icon, Text } from '@ui-kitten/components';
 import { StyleSheet, View, TouchableOpacity, Dimensions } from 'react-native';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width, height } = Dimensions.get('window');
 
 const ProfileSettings = ({ navigation }) => {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [birthday, setBirthday] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-
+  const [userData, setUserData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    password: '',
+    birthday: '',
+  });
   const [errors, setErrors] = useState({
     name: '',
     phone: '',
@@ -20,47 +22,56 @@ const ProfileSettings = ({ navigation }) => {
     birthday: '',
   });
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userId = await localStorage.getItem('userId');
+
+      if (!userId) {
+        navigation.replace('Login');
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://10.0.2.2:5000/getUserProfile`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${userId}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const user = data.user;
+
+          setUserData({
+            name: user.firstName,
+            phone: user.phoneNumber,
+            email: user.email,
+            password: user.password,
+            birthday: user.birthday || '',
+          });
+        } else {
+          const errorData = await response.json();
+          Alert.alert('Error', errorData.message);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+    fetchUserData();
+  }, []);
+
   const handleClose = () => {
-    navigation.replace('Login');
+    navigation.goBack();
   };
 
   const handleSave = () => {
-    // Validate inputs before saving
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-      // If there are no errors, proceed with saving
       navigation.replace('Category');
     } else {
       setErrors(validationErrors);
     }
-  };
-
-  const validateForm = () => {
-    let validationErrors = {};
-
-    if (!name.trim()) {
-      validationErrors.name = 'Name is required';
-    }
-
-    const phonePattern = /^[0-9]{10}$/;
-    if (!phonePattern.test(phone)) {
-      validationErrors.phone = 'Please enter a valid phone number';
-    }
-
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
-      validationErrors.email = 'Please enter a valid email address';
-    }
-
-    if (password.length < 6) {
-      validationErrors.password = 'Password must be at least 6 characters long';
-    }
-
-    if (!birthday.trim()) {
-      validationErrors.birthday = 'Please enter a valid birthday';
-    }
-
-    return validationErrors;
   };
 
   const toggleSecureEntry = () => {
@@ -96,6 +107,19 @@ const ProfileSettings = ({ navigation }) => {
     />
   );
 
+  const validateForm = () => {
+    let validationErrors = {};
+    if (!userData.name.trim()) validationErrors.name = 'Name is required';
+    const phonePattern = /^[0-9]{10}$/;
+    if (!phonePattern.test(userData.phone)) validationErrors.phone = 'Invalid phone number';
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(userData.email)) validationErrors.email = 'Invalid email address';
+    if (userData.password.length < 6) validationErrors.password = 'Password too short';
+    if (!userData.birthday.trim()) validationErrors.birthday = 'Birthday is required';
+
+    return validationErrors;
+  };
+
   return (
     <View style={styles.cardContainer}>
       <Layout style={styles.container}>
@@ -106,13 +130,7 @@ const ProfileSettings = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.avatarContainer}>
-          <Avatar
-            size="giant"
-            source={{
-              uri: 'https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg',
-            }}
-            style={styles.avatar}
-          />
+          <Avatar size="giant" source={require('../public/images/category-user.png')} style={styles.avatar} />
           <TouchableOpacity style={styles.editIcon}>
             {renderEditIcon()}
           </TouchableOpacity>
@@ -120,8 +138,8 @@ const ProfileSettings = ({ navigation }) => {
         <Input
           label="Name"
           placeholder="Enter your name"
-          value={name}
-          onChangeText={setName}
+          value={userData.name}
+          onChangeText={(text) => setUserData({ ...userData, name: text })}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
           status={errors.name ? 'danger' : 'basic'}
@@ -131,8 +149,8 @@ const ProfileSettings = ({ navigation }) => {
         <Input
           label="Phone"
           placeholder="Enter your phone"
-          value={phone}
-          onChangeText={setPhone}
+          value={userData.phone}
+          onChangeText={(text) => setUserData({ ...userData, phone: text })}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
           status={errors.phone ? 'danger' : 'basic'}
@@ -142,8 +160,8 @@ const ProfileSettings = ({ navigation }) => {
         <Input
           label="Email"
           placeholder="Enter your email"
-          value={email}
-          onChangeText={setEmail}
+          value={userData.email}
+          onChangeText={(text) => setUserData({ ...userData, email: text })}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
           status={errors.email ? 'danger' : 'basic'}
@@ -153,9 +171,9 @@ const ProfileSettings = ({ navigation }) => {
         <Input
           label="Password"
           placeholder="Enter your password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={secureTextEntry}
+          value={userData.password}
+          onChangeText={(text) => setUserData({ ...userData, password: text })}
+          secureTextEntry={true}
           accessoryRight={renderEyeIcon}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
@@ -166,8 +184,8 @@ const ProfileSettings = ({ navigation }) => {
         <Input
           label="Birthday"
           placeholder="Set Birthday"
-          value={birthday}
-          onChangeText={setBirthday}
+          value={userData.birthday}
+          onChangeText={(text) => setUserData({ ...userData, birthday: text })}
           style={styles.input}
           labelStyle={{ color: '#444957' }}
           status={errors.birthday ? 'danger' : 'basic'}

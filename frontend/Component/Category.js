@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Text, Input, Card, Icon, Avatar } from '@ui-kitten/components';
-import { Image, StyleSheet, View, FlatList } from 'react-native';
+import { Image, StyleSheet, View, FlatList , TouchableOpacity} from 'react-native';
 
 import db from "../db.json"
 
@@ -57,7 +57,7 @@ const Category = ({ navigation }) => {
       <FlatList
         ListHeaderComponent={() => (
           <Layout>
-            <View style={styles.header}>
+            {/* <View style={styles.header}>
               <Image
                 source={require('../public/images/category-logo.png')}
                 style={styles.categoryLogo}
@@ -72,16 +72,22 @@ const Category = ({ navigation }) => {
                   style={styles.headericon}
                 />
               </View>
-            </View>
+            </View> */}
             <View style={styles.header}>
               <View style={styles.textContainer}>
                 <Text style={styles.greeting}>Good morning!</Text>
                 <Text category='h6'>James Harrid</Text>
               </View>
-              <Avatar
-                source={require('../public/images/category-user.png')}
-                style={styles.profileImage}
-              />
+              <TouchableOpacity onPress={() => navigation.navigate('ProfileSetting')}>
+
+                <Avatar
+                  source={require('../public/images/category-user.png')}
+                  style={styles.profileImage}
+                  // onPress={() => {
+                  //   navigation.navigate('ProfileSetting');
+                  // }}
+                />
+            </TouchableOpacity>
             </View>
             <Input
               placeholder='What service are you looking for?'

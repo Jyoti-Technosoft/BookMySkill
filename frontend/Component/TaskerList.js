@@ -142,7 +142,7 @@ const TaskerList = ({ navigation }) => {
     <Layout style={styles.container}>
       <View style={styles.headerContainer}>
         <Header navigation={navigation}/>
-        <View style={styles.filtersContainer}>
+        {/* <View style={styles.filtersContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={true}>
             <TouchableOpacity
               style={styles.filterBadge}>
@@ -176,7 +176,7 @@ const TaskerList = ({ navigation }) => {
             </TouchableOpacity>
           </ScrollView>
 
-        </View>
+        </View> */}
       </View>
       <FlatList
         data={taskers}
@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   header: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#d4d4d4',
+    // borderBottomWidth: 0.5,
+    // borderBottomColor: '#d4d4d4',
     paddingBottom: 10,
   },
   backImage: {

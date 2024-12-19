@@ -27,10 +27,10 @@ const TaskCompleted = ({ navigation }) => {
                             {/* <Button appearance="ghost"
                                 //   accessoryLeft={MessageIcon} 
                                 style={styles.chatButton} /> */}
-                            <Image
+                            {/* <Image
                                 source={require("../public/images/chat-icon.png")}
                                 style={styles.chatImage}
-                            />
+                            /> */}
                         </View>
                         <Divider style={styles.divider} />
                         <View style={styles.info}>
@@ -53,7 +53,7 @@ const TaskCompleted = ({ navigation }) => {
                         </View>
                         {/* <Button style={styles.button}>{task.buttonText}</Button> */}
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('TaskerRating')}
+                            onPress={() => navigation.navigate('TaskerList')}
                             style={task.buttonText === 'Rate' ? styles.rateButton : styles.bookAgainButton}
                         >
                             <Text style={task.buttonText === 'Rate' ? styles.buttonTextRate : styles.buttonTextBookAgain}>

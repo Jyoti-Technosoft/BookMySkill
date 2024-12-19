@@ -18,5 +18,9 @@ userRoutes.post(
   authMidleware.checkCommonToken,
   userAuthorizationController.userLogout
 );
+// userRoutes.get(
+//   "/getUserProfile",
+//   userAuthorizationController.getUserProfile
+// );
 
 module.exports = userRoutes;
